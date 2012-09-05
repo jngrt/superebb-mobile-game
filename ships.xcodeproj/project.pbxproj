@@ -13,6 +13,7 @@
 		5326AEA810A23A0500278DE6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5326AEA710A23A0500278DE6 /* CoreLocation.framework */; };
 		53F323EB10A20EDB00E0DAE4 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */; };
 		8C117D9715F2A61C00923B24 /* boat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C117D9615F2A61C00923B24 /* boat.cpp */; };
+		8C117DA015F7FBA900923B24 /* levelParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C117D9F15F7FBA900923B24 /* levelParser.cpp */; };
 		8C9339EF15E99DD500263479 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C93398B15E99DD500263479 /* b2BroadPhase.cpp */; };
 		8C9339F015E99DD500263479 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C93398D15E99DD500263479 /* b2CollideCircle.cpp */; };
 		8C9339F115E99DD500263479 /* b2CollidePolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C93398E15E99DD500263479 /* b2CollidePolygon.cpp */; };
@@ -101,6 +102,8 @@
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		8C117D9615F2A61C00923B24 /* boat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boat.cpp; sourceTree = "<group>"; };
 		8C117D9815F2A63900923B24 /* boat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boat.h; sourceTree = "<group>"; };
+		8C117D9E15F7FB6500923B24 /* levelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = levelParser.h; sourceTree = "<group>"; };
+		8C117D9F15F7FBA900923B24 /* levelParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = levelParser.cpp; sourceTree = "<group>"; };
 		8C93398915E99DD500263479 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		8C93398B15E99DD500263479 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		8C93398C15E99DD500263479 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -526,6 +529,8 @@
 				8C117D9615F2A61C00923B24 /* boat.cpp */,
 				8C117D9815F2A63900923B24 /* boat.h */,
 				8C933A2415ECA6D500263479 /* boatRect.h */,
+				8C117D9E15F7FB6500923B24 /* levelParser.h */,
+				8C117D9F15F7FBA900923B24 /* levelParser.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -674,6 +679,7 @@
 				8C933A1815E99DD500263479 /* ofxBox2dRect.cpp in Sources */,
 				8C933A2315ECA65300263479 /* boatRect.cpp in Sources */,
 				8C117D9715F2A61C00923B24 /* boat.cpp in Sources */,
+				8C117DA015F7FBA900923B24 /* levelParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
