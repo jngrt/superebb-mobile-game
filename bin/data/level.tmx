@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="6" height="3" tilewidth="1024" tileheight="1024">
+    <tileset firstgid="1" name="haven" tilewidth="1024" tileheight="1024">
+        <image source="haven-trace-simpler_03.png" width="2048" height="2048"/>
+    </tileset>
+    <tileset firstgid="5" name="haven2" tilewidth="1024" tileheight="1024">
+        <image source="haven-trace-simpler_04-05.png" width="2048" height="2048"/>
+    </tileset>
+    <tileset firstgid="9" name="haven3" tilewidth="1024" tileheight="1024">
+        <image source="haven-trace-simpler_05.png" width="2048" height="2048"/>
+    </tileset>
+    <layer name="Tile Layer 1" width="6" height="3">
+        <data encoding="base64" compression="zlib">
+            eJxjZGBgYGLABMxAzALErEDMBsScQMyFJM8OxBxAzA3EPEAMAAeIAE8=
+        </data>
+    </layer>
+    <objectgroup name="Object Layer 1" width="6" height="3">
+        <object x="1685" y="6">
+            <polyline points="0,0 -282,370 -609,642 -742,603 -752,618 -552,679 -548,694 -457,726 -453,735 -304,809 -292,793 -249,817 -257,833 -213,863 -213,873 -188,871 -157,898 -140,901 206,1181 210,1209 260,1249 287,1249 447,1377 506,1421"/>
+        </object>
+        <object x="136" y="750">
+            <polyline points="0,0 10,-60 76,-114 142,-144 210,-144 254,-130 240,-98 332,-58 510,-12 560,14 664,36 720,68 754,104 780,156 780,172 788,216 768,294 732,300 668,176 590,214 372,126 348,176 428,208 422,218 256,168 238,202 418,270 416,358 326,370 134,296 118,314 178,452 654,398 716,554 254,660 272,706 716,620 720,652 638,756 272,892 168,660 122,670 266,1010 692,850 832,824 896,830 896,796 822,780 796,740 810,638 856,698 882,694 898,718 934,686 912,662 944,624 838,516 856,420 884,398 882,364 922,214 950,192 1000,202 1000,218 1068,250 1070,258 1252,350 1250,374 1266,384 1276,444 1298,480 1298,512 1264,510 1262,560 1280,562 1284,630 1324,634 1328,734 1376,732 1374,586 1388,568 1388,514 1400,500 1398,444 1430,456 1444,476 1446,568 1512,568 1594,632 1594,578 1604,576 1688,644 1714,720 1716,806 1792,806 1794,830 1814,842 1858,840 1862,796 1874,796 1948,858"/>
+        </object>
+        <object x="2068" y="1492">
+            <polyline points="0,0 -484,-398 -502,-384 -612,-474 -668,-558 -646,-560 -556,-488 -246,-228 -210,-230 -156,-182 -160,-160 16,-22 2,2"/>
+        </object>
+    </objectgroup>
+</map>
