@@ -20,8 +20,8 @@ void BoatChain::setup(ofxBox2d& box2d)
     
     chain.front().addImpulseForce(ofVec2f(1.0,1.0), 1.0);
     desiredAngle = 90 * DEG_TO_RAD;
-    //for(int i=0;i<10;i++)
-    //    addBoat();
+    for(int i=0;i<10;i++)
+        addBoat();
 }
 void BoatChain::update()
 {
@@ -105,7 +105,7 @@ void BoatChain::addBoat()
     boat.setPhysics(0.001, 0.0, 0.8);
     boat.setDamping(0.95);
     boat.setRotationFriction(0.95);
-	boat.setup(box2d.getWorld(), chain.back().getPosition().x+22, 80, 10, 4);
+	boat.setup(box2d.getWorld(), chain.back().getPosition().x+22, chain.back().getPosition().y, 10, 4);
     
     b2RevoluteJointDef rjd;
     rjd.Initialize(chain.back().body,boat.body,chain.back().body->GetPosition()+b2Vec2(0.2,0));

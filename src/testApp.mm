@@ -18,7 +18,7 @@ void testApp::setup(){
     
     level.setup(box2d);
     chain.setup(box2d);
-    
+    waitingShips.setup();
     //cout<<"test:"<<&box2d<<" == "<<chain.box2d<<endl;
 }
 

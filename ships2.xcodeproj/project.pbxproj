@@ -62,6 +62,15 @@
 		8C446C8515FA408B007E90FE /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C8415FA408B007E90FE /* level.cpp */; };
 		8C446C8815FA4D41007E90FE /* boatChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C8715FA4D41007E90FE /* boatChain.cpp */; };
 		8C446C8C15FA4E98007E90FE /* boatRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C8A15FA4E97007E90FE /* boatRect.cpp */; };
+		8C446CA115FD38D0007E90FE /* install.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8C446C8E15FD38D0007E90FE /* install.xml */; };
+		8C446CA215FD38D0007E90FE /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9315FD38D0007E90FE /* dump.c */; };
+		8C446CA315FD38D0007E90FE /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9415FD38D0007E90FE /* hashtable.c */; };
+		8C446CA415FD38D0007E90FE /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9815FD38D0007E90FE /* load.c */; };
+		8C446CA515FD38D0007E90FE /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9915FD38D0007E90FE /* strbuffer.c */; };
+		8C446CA615FD38D0007E90FE /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9B15FD38D0007E90FE /* utf.c */; };
+		8C446CA715FD38D0007E90FE /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9E15FD38D0007E90FE /* value.c */; };
+		8C446CA815FD38D0007E90FE /* ofxJansson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446C9F15FD38D0007E90FE /* ofxJansson.cpp */; };
+		8C446CAA15FD3C00007E90FE /* waitingShips.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446CA915FD3C00007E90FE /* waitingShips.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BB24DD8F10DA77E000E9C588 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24DD8C10DA77E000E9C588 /* Default.png */; };
@@ -211,6 +220,24 @@
 		8C446C8915FA4D5C007E90FE /* boatChain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boatChain.h; sourceTree = "<group>"; };
 		8C446C8A15FA4E97007E90FE /* boatRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boatRect.cpp; sourceTree = "<group>"; };
 		8C446C8B15FA4E97007E90FE /* boatRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = boatRect.h; sourceTree = "<group>"; };
+		8C446C8E15FD38D0007E90FE /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		8C446C9215FD38D0007E90FE /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		8C446C9315FD38D0007E90FE /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
+		8C446C9415FD38D0007E90FE /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
+		8C446C9515FD38D0007E90FE /* hashtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hashtable.h; sourceTree = "<group>"; };
+		8C446C9615FD38D0007E90FE /* jansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson.h; sourceTree = "<group>"; };
+		8C446C9715FD38D0007E90FE /* jansson_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jansson_private.h; sourceTree = "<group>"; };
+		8C446C9815FD38D0007E90FE /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		8C446C9915FD38D0007E90FE /* strbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strbuffer.c; sourceTree = "<group>"; };
+		8C446C9A15FD38D0007E90FE /* strbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strbuffer.h; sourceTree = "<group>"; };
+		8C446C9B15FD38D0007E90FE /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
+		8C446C9C15FD38D0007E90FE /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
+		8C446C9D15FD38D0007E90FE /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
+		8C446C9E15FD38D0007E90FE /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
+		8C446C9F15FD38D0007E90FE /* ofxJansson.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxJansson.cpp; sourceTree = "<group>"; };
+		8C446CA015FD38D0007E90FE /* ofxJansson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxJansson.h; sourceTree = "<group>"; };
+		8C446CA915FD3C00007E90FE /* waitingShips.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = waitingShips.cpp; sourceTree = "<group>"; };
+		8C446CAB15FD3C17007E90FE /* waitingShips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = waitingShips.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DD8C10DA77E000E9C588 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -508,6 +535,54 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		8C446C8D15FD38D0007E90FE /* ofxJansson */ = {
+			isa = PBXGroup;
+			children = (
+				8C446C8E15FD38D0007E90FE /* install.xml */,
+				8C446C8F15FD38D0007E90FE /* src */,
+			);
+			name = ofxJansson;
+			path = ../../../addons/ofxJansson;
+			sourceTree = "<group>";
+		};
+		8C446C8F15FD38D0007E90FE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8C446C9015FD38D0007E90FE /* lib */,
+				8C446C9F15FD38D0007E90FE /* ofxJansson.cpp */,
+				8C446CA015FD38D0007E90FE /* ofxJansson.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		8C446C9015FD38D0007E90FE /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				8C446C9115FD38D0007E90FE /* jansson */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		8C446C9115FD38D0007E90FE /* jansson */ = {
+			isa = PBXGroup;
+			children = (
+				8C446C9215FD38D0007E90FE /* config.h */,
+				8C446C9315FD38D0007E90FE /* dump.c */,
+				8C446C9415FD38D0007E90FE /* hashtable.c */,
+				8C446C9515FD38D0007E90FE /* hashtable.h */,
+				8C446C9615FD38D0007E90FE /* jansson.h */,
+				8C446C9715FD38D0007E90FE /* jansson_private.h */,
+				8C446C9815FD38D0007E90FE /* load.c */,
+				8C446C9915FD38D0007E90FE /* strbuffer.c */,
+				8C446C9A15FD38D0007E90FE /* strbuffer.h */,
+				8C446C9B15FD38D0007E90FE /* utf.c */,
+				8C446C9C15FD38D0007E90FE /* utf.h */,
+				8C446C9D15FD38D0007E90FE /* util.h */,
+				8C446C9E15FD38D0007E90FE /* value.c */,
+			);
+			path = jansson;
+			sourceTree = "<group>";
+		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +594,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				8C446C8D15FD38D0007E90FE /* ofxJansson */,
 				8C446C7515FA4016007E90FE /* ofxXmlSettings */,
 				8C446BE115FA3218007E90FE /* ofxBox2d */,
 			);
@@ -575,6 +651,8 @@
 				8C446C8615FA4097007E90FE /* level.h */,
 				8C446C8715FA4D41007E90FE /* boatChain.cpp */,
 				8C446C8915FA4D5C007E90FE /* boatChain.h */,
+				8C446CA915FD3C00007E90FE /* waitingShips.cpp */,
+				8C446CAB15FD3C17007E90FE /* waitingShips.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -652,6 +730,7 @@
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
 				8C446C4A15FA3218007E90FE /* install.xml in Resources */,
+				8C446CA115FD38D0007E90FE /* install.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +808,14 @@
 				8C446C8515FA408B007E90FE /* level.cpp in Sources */,
 				8C446C8815FA4D41007E90FE /* boatChain.cpp in Sources */,
 				8C446C8C15FA4E98007E90FE /* boatRect.cpp in Sources */,
+				8C446CA215FD38D0007E90FE /* dump.c in Sources */,
+				8C446CA315FD38D0007E90FE /* hashtable.c in Sources */,
+				8C446CA415FD38D0007E90FE /* load.c in Sources */,
+				8C446CA515FD38D0007E90FE /* strbuffer.c in Sources */,
+				8C446CA615FD38D0007E90FE /* utf.c in Sources */,
+				8C446CA715FD38D0007E90FE /* value.c in Sources */,
+				8C446CA815FD38D0007E90FE /* ofxJansson.cpp in Sources */,
+				8C446CAA15FD3C00007E90FE /* waitingShips.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,7 +858,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -790,7 +877,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_LDFLAGS = "-no_arch_warnings";
@@ -804,7 +890,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = YES;

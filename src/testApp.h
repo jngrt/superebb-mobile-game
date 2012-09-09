@@ -6,6 +6,7 @@
 #include "ofxBox2d.h"
 #include "level.h"
 #include "boatChain.h"
+#include "waitingShips.h"
 
 class testApp : public ofxiPhoneApp{
 	
@@ -25,7 +26,8 @@ public:
     void gotFocus();
     void gotMemoryWarning();
     void deviceOrientationChanged(int newOrientation);
-
+    
+    WaitingShips waitingShips;
     ofxBox2d box2d;
     Level level;
     vector <ofxBox2dPolygon> polyLines;
