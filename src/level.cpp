@@ -44,6 +44,7 @@ void Level::draw()
 
 void Level::drawDebug()
 {
+    
     for(int i=0;i<polyLines.size();i++)
     {
         //ofSetColor( i*50,0,0);
@@ -54,7 +55,7 @@ void Level::drawDebug()
 void Level::parseLevel()
 {
     ofxXmlSettings data;
-    data.loadFile("level.tmx");
+    data.loadFile("level2.tmx");
     data.pushTag("map");
     data.pushTag("objectgroup");
     
@@ -70,6 +71,24 @@ void Level::parseLevel()
     }
 }
 
+bool Level::checkInside(ofVec2f point)
+{
+    cout<<"Check polys. inside:";
+    for( int i=0;i<polyLines.size();i++)
+        if( insidePolygon(point, polyLines[i]) )
+        {
+            cout<<i<<endl;
+            return true;
+        }
+    cout<<" none"<<endl;
+    return false;
+}
+
+void Level::filterShips(vector<ShipData>& data)
+{
+    
+}
+
 void Level::parsePoly(int baseX, int baseY, string vertexData)
 {
     cout<<"parsePoly:"<<baseX<<" , "<<baseY<<endl;
@@ -80,7 +99,9 @@ void Level::parsePoly(int baseX, int baseY, string vertexData)
         vector<string> vertex = ofSplitString(vertices[i], ",");
         poly.addVertex((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale);
     }
+    //poly.close();
     //poly.setPosition(-baseX*scale, -baseY*scale);
     poly.create(box2d.getWorld());
+    
     polyLines.push_back(poly);
 }

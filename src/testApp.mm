@@ -19,6 +19,8 @@ void testApp::setup(){
     level.setup(box2d);
     chain.setup(box2d);
     waitingShips.setup();
+    level.filterShips(waitingShips.ships);
+    //TODO: filter ships
     //cout<<"test:"<<&box2d<<" == "<<chain.box2d<<endl;
 }
 
@@ -42,9 +44,13 @@ void testApp::draw(){
     ofTranslate(camera);
     level.draw();
     chain.draw();
+    waitingShips.draw();
     
     ofSetHexColor(0x00ff00);
     ofCircle(0,0,4);
+    
+    ofSetHexColor(0xffff00);
+    ofCircle(1410,940,6);
     
     ofPopMatrix();
     
@@ -54,6 +60,8 @@ void testApp::draw(){
     level.drawDebug();
     ofSetHexColor(0x00ff00);
     chain.drawDebug();
+    ofSetHexColor(0x880000);
+    waitingShips.drawDebug();
     ofPopMatrix();
     
     string info = "";
@@ -72,6 +80,7 @@ void testApp::exit(){
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
+    level.checkInside(ofVec2f(touch.x-camera.x,touch.y-camera.y));
     touchMoved(touch);
 }
 

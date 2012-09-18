@@ -10,16 +10,30 @@
 #define ships2_waitingShips_h
 
 #include "ofMain.h"
-#include "ofxJansson.h"
+//#include "ofxJansson.h"
+#include "ofxJSONElement.h"
+#include "shipData.h"
 
 class WaitingShips
 {
 public:
     void setup();
     void draw();
+    void drawDebug();
+    
+    vector<ShipData> ships;    
     
 private:
     void parseData();
+    ofVec2f realStartCoord;
+    ofVec2f gameStartCoord;
+    ofVec2f realEndCoord;
+    ofVec2f gameEndCoord;
+    ofVec2f realArea;
+    ofVec2f gameArea;
+
+    
+    
 };
 
 

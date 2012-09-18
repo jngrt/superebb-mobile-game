@@ -12,40 +12,68 @@
 
 void WaitingShips::setup()
 {
+    realStartCoord.set(4.1238f,51.9707f);
+    realEndCoord.set(4.4894f, 51.9076f);
+    //(1.381 x 0.916 ) * 1024 = (1414,938) 
+    //(5.721 x 2.136 ) * 1024 = (5858,2187)
+    gameStartCoord.set(1414.0f, 938.0f);
+    gameEndCoord.set(5858.0f, 2187.0f);
+    realArea = realEndCoord - realStartCoord;
+    gameArea = gameEndCoord - gameStartCoord;
+    
     parseData();
 }
 
 void WaitingShips::draw()
 {
-    
+    ofSetHexColor(0x880000);
+    for(int i=0;i<ships.size();i++)
+    {
+        ofCircle(ships[i].location.x,ships[i].location.y,5); 
+    }
+}
+
+void WaitingShips::drawDebug()
+{
+    for(int i=0;i<ships.size();i++)
+    {
+        ofCircle(ships[i].location.x,ships[i].location.y,5); 
+    }
 }
 
 void WaitingShips::parseData()
 {
-    json_t* root;
-	json_error_t error;
+    ofxJSONElement data;
     
-    ofBuffer buffer = ofBufferFromFile("ship_data.json");
-    //cout<<"test:"<<buffer<<endl;
+    if( data.openLocal("data_tanker_only_18092012.json.txt") )
+        cout<<"Json parsed items:"<<data.size()<<endl;
+    else 
+        cout<<"Failed to parse json"<<endl;
     
-    // load json.
-	//root = json_loads(buffer.getText(), &error);
-    //root = json_load_file("ship_data.json", &error);
-    //char text[buffer.getText().size()];
-    //text = buffer.getText().c_str();
+    ships.resize(data.size());
     
-    char* p = new char[buffer.getText().length()+1];
-    memcpy(p, buffer.getText().c_str(), buffer.getText().length());
-    root = json_loads(p, &error);
-
-    //ifstream dataFile;
-    //dataFile.open("ship_data.json");
-    //root = json_loadf(datafile,&error);
-    
-    if(!root) {
-		cout <<  "error: on line:" << error.line << ", " << error.text << endl;
-		return;
-	}else{
-        cout<< "no json error?"<<endl;
+    for(int i=0;i<data.size();i++)
+    {
+        ofxJSONElement dataItem = data[i];
+        float objectY = dataItem[0u].asDouble();
+        float objectX = dataItem[1].asDouble();
+        float offsetX = (objectX - realStartCoord.x);
+        float offsetY = (objectY - realStartCoord.y);
+        float relativeX =  offsetX / realArea.x;
+        float relativeY =  offsetY / realArea.y;
+        
+        float x = gameStartCoord.x + relativeX * gameArea.x;
+        float y = gameStartCoord.y + relativeY * gameArea.y;
+        
+        ships[i].setup(x, y, dataItem[2].asString());
+        
+        //cout<<i<<":--------------"<<endl;
+        //cout<<" obj:"<<objectX<<" x "<<objectY<<endl;
+        //cout<<" off:"<<offsetX<<" x "<<offsetY<<endl;
+        //cout<<" rel:"<<relativeX<<" x "<<relativeY<<endl;
+        //cout<<"real:"<<x<<" x "<<y<<endl;
+        //cout<<"ship:"<<ships[i].location.x<<" x "<<ships[i].location.y<<endl;
+        
     }
+    
 }

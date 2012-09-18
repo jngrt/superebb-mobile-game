@@ -20,7 +20,7 @@ void BoatChain::setup(ofxBox2d& box2d)
     
     chain.front().addImpulseForce(ofVec2f(1.0,1.0), 1.0);
     desiredAngle = 90 * DEG_TO_RAD;
-    for(int i=0;i<10;i++)
+    for(int i=0;i<3;i++)
         addBoat();
 }
 void BoatChain::update()
@@ -53,7 +53,7 @@ void BoatChain::update()
         b2Vec2 force = linVelVec;
         force *= -10.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
-    }else if( vel.Length() < 1.0){
+    }else if( vel.Length() < 4.0){
         b2Vec2 force = linVelVec;
         force *= 5.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
@@ -95,7 +95,7 @@ void BoatChain::makeFront()
     front.setPhysics(10.0, 0.1, 0.1);
     front.setDamping(0.2);
     front.setRotationFriction(0.3);
-	front.setup(box2d.getWorld(), 1024, 800, 10, 4);
+	front.setup(box2d.getWorld(), 1380, 900, 10, 4);
     chain.push_back(front);
 }
 
