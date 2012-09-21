@@ -23,12 +23,17 @@ public:
     void drawDebug();
     void update();
     void updateAngle(float touchX,float touchY);
+
+    void addShips(const vector<ShipData> &shipsToAdd);
     ofVec2f getFrontPos();
+    
     
 private:
     void makeFront();
-    void addBoat();
-    
+    void addShip(ShipData data);
+    void collapseBoats(int index);
+    void checkBoats();
+    //vector<
     vector<BoatRect> chain;
     float desiredAngle;
     ofVec2f lastPoint;

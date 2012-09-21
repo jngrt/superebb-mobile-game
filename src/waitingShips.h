@@ -20,7 +20,7 @@ public:
     void setup();
     void draw();
     void drawDebug();
-    
+    void getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear);    
     vector<ShipData> ships;    
     
 private:

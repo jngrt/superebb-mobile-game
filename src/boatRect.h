@@ -12,11 +12,16 @@
 #include "ofxBox2dRect.h"
 #include "b2Math.h"
 #include "b2Body.h"
+#include "shipData.h"
 
 class BoatRect : public ofxBox2dRect
 {
 public:
+    int multiplier;
+    ShipData data;
+    b2RevoluteJoint * joint;
     void killOrthogonalVelocity();
+    ofVec2f getDirection();
 };
 
 #endif

@@ -18,3 +18,11 @@ void BoatRect::killOrthogonalVelocity()
     sidewaysAxis *= b2Dot(vel,sidewaysAxis);
     body->SetLinearVelocity(sidewaysAxis);
 }
+
+ofVec2f BoatRect::getDirection()
+{
+    b2Vec2 dir = body->GetWorldVector(b2Vec2(-1,0));
+    return ofVec2f(dir.x,dir.y);
+}
+
+

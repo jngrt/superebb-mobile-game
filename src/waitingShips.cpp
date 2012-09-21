@@ -26,9 +26,16 @@ void WaitingShips::setup()
 
 void WaitingShips::draw()
 {
-    ofSetHexColor(0x880000);
+    
     for(int i=0;i<ships.size();i++)
     {
+        if( ships[i].invalidLocation)
+            ofSetHexColor(0xff0000);
+        else if(ships[i].pickedUp)
+            ofSetHexColor(0x777777);
+        else
+            ofSetHexColor(0x0000ff);
+        //ofSetHexColor( ships[i].invalidLocation?0x880000:0x000088);
         ofCircle(ships[i].location.x,ships[i].location.y,5); 
     }
 }
@@ -37,8 +44,25 @@ void WaitingShips::drawDebug()
 {
     for(int i=0;i<ships.size();i++)
     {
+        if( ships[i].invalidLocation)
+            ofSetHexColor(0xff0000);
+        else if(ships[i].pickedUp)
+            ofSetHexColor(0x777777);
+        else
+            ofSetHexColor(0x0000ff);
+        
         ofCircle(ships[i].location.x,ships[i].location.y,5); 
     }
+}
+
+void WaitingShips::getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear )
+{
+    for(int i=0;i<ships.size();i++)
+        if( !ships[i].pickedUp && (point - ships[i].location).length()<20.0)
+        {
+            ships[i].pickedUp = true;
+            shipsNear.push_back(ships[i]);
+        }
 }
 
 void WaitingShips::parseData()

@@ -71,22 +71,30 @@ void Level::parseLevel()
     }
 }
 
+
 bool Level::checkInside(ofVec2f point)
 {
-    cout<<"Check polys. inside:";
+    //cout<<"Check polys. inside:";
     for( int i=0;i<polyLines.size();i++)
         if( insidePolygon(point, polyLines[i]) )
         {
-            cout<<i<<endl;
+            //cout<<i<<endl;
             return true;
         }
-    cout<<" none"<<endl;
+    //cout<<" none"<<endl;
     return false;
 }
 
 void Level::filterShips(vector<ShipData>& data)
 {
-    
+    for(int i=0;i<data.size();i++)
+    {
+        if( checkInside(data[i].location)){
+            data[i].invalidLocation = true;
+            cout<<"invalid location:"<<i<<endl;
+        }
+            
+    }
 }
 
 void Level::parsePoly(int baseX, int baseY, string vertexData)

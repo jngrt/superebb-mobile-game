@@ -4,7 +4,8 @@
 void testApp::setup(){	
 	
 	iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_LEFT);
-	ofRegisterTouchEvents(this);
+	
+    ofRegisterTouchEvents(this);
 	ofBackground(127,127,127);
     ofSetFrameRate(30);
     
@@ -27,6 +28,12 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
     
+    vector<ShipData> shipsNear;
+    waitingShips.getShipsNearby(chain.getFrontPos(), shipsNear);
+    if(shipsNear.size()>0)
+    {
+        chain.addShips(shipsNear);
+    }
     
     chain.update();    
     
@@ -80,7 +87,7 @@ void testApp::exit(){
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
-    level.checkInside(ofVec2f(touch.x-camera.x,touch.y-camera.y));
+    //level.checkInside(ofVec2f(touch.x-camera.x,touch.y-camera.y));
     touchMoved(touch);
 }
 
