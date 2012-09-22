@@ -29,6 +29,7 @@ public:
     
     WaitingShips waitingShips;
     ofxBox2d box2d;
+    //ofAppiPhoneWindow * window;
     Level level;
     vector <ofxBox2dPolygon> polyLines;
     BoatChain chain;

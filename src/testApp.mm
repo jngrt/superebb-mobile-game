@@ -17,12 +17,13 @@ void testApp::setup(){
     //box2d.createBounds();
     //box2d.setIterations(1, 1);
     
-    level.setup(box2d);
+    //window = ofxiPhoneGetOFWindow();
+    
+    level.setup(box2d,480);
     chain.setup(box2d);
     waitingShips.setup();
     level.filterShips(waitingShips.ships);
-    //TODO: filter ships
-    //cout<<"test:"<<&box2d<<" == "<<chain.box2d<<endl;
+    
 }
 
 //--------------------------------------------------------------
@@ -40,7 +41,7 @@ void testApp::update(){
     box2d.update();
     
     camera.set(-chain.getFrontPos());
-    camera += ofPoint(ofGetScreenWidth()/2.0,ofGetScreenHeight()/2.0);
+    camera += ofPoint(240,160);
     
 }
 
@@ -49,7 +50,7 @@ void testApp::draw(){
  
     ofPushMatrix();
     ofTranslate(camera);
-    level.draw();
+    level.draw(camera);
     chain.draw();
     waitingShips.draw();
     

@@ -10,9 +10,10 @@
 #include "level.h"
 
 
-void Level::setup(ofxBox2d& box2d)
+void Level::setup(ofxBox2d& box2d, int windowWidth)
 {
     this->box2d = box2d;
+    this->windowWidth = windowWidth;
     
     scale = 1.0;
     
@@ -26,14 +27,24 @@ void Level::setup(ofxBox2d& box2d)
     poly.create(box2d.getWorld());
     polyLines.push_back(poly);*/
     
-    tileImage.loadImage("tile1.png");
+    tileImage1.loadImage("tile1.png");
+    tileImage2.loadImage("tile2.png");
+    tileImage3.loadImage("tile3.png");
     
 }
 
-void Level::draw()
+void Level::draw(const ofPoint & camera)
 {
     ofSetHexColor(0xffffff);
-    tileImage.draw(0,0);
+    if(-camera.x < 2048)
+        tileImage1.draw(0,0);
+    if(-camera.x > 2048-windowWidth &&
+       -camera.x < 4096)
+        tileImage2.draw(2048,1024);
+    if(-camera.x > 4096-windowWidth &&
+       -camera.x < 6144)
+        tileImage3.draw(4096,1024);
+    
     ofSetHexColor(0xff0000);
     for(int i=0;i<polyLines.size();i++)
     {
@@ -87,14 +98,16 @@ bool Level::checkInside(ofVec2f point)
 
 void Level::filterShips(vector<ShipData>& data)
 {
+    cout<<"filterShips, invalid ships:";
     for(int i=0;i<data.size();i++)
     {
         if( checkInside(data[i].location)){
             data[i].invalidLocation = true;
-            cout<<"invalid location:"<<i<<endl;
+            cout<<i<<",";
         }
             
     }
+    cout<<endl;
 }
 
 void Level::parsePoly(int baseX, int baseY, string vertexData)

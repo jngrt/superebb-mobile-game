@@ -52,7 +52,7 @@ void BoatChain::update()
         b2Vec2 force = linVelVec;
         force *= -10.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
-    }else if( vel.Length() < 4.0){
+    }else if( vel.Length() < 8.0){
         b2Vec2 force = linVelVec;
         force *= 5.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
