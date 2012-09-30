@@ -73,6 +73,25 @@ void BoatChain::updateAngle(float inputX, float inputY)
     desiredAngle = atan2f(-toTarget.x,toTarget.y);
 
 }
+
+bool BoatChain::checkTide(int x)
+{
+    if(chain.begin()->getPosition().x>x)
+    {
+        return false;
+    }
+    
+    for(int i=1;i<chain.size();i++)
+    {
+        if(chain[i].getPosition().x > x)
+        {
+            collapseBoats(i-1);
+            break;
+        }
+    }
+    return true;
+    
+}
 void BoatChain::draw()
 {
     ofColor colors[] = {ofColor(240,200,200),ofColor(180,140,140),ofColor(110,70,70),ofColor(50,10,10)};

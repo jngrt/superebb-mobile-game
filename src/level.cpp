@@ -27,8 +27,8 @@ void Level::setup(ofxBox2d& box2d, int windowWidth)
     poly.create(box2d.getWorld());
     polyLines.push_back(poly);*/
     
-    tileImage1.loadImage("tile1.png");
-    tileImage2.loadImage("tile2.png");
+    tileImage1.loadImage("tile1b.png");
+    tileImage2.loadImage("tile2b.png");
     tileImage3.loadImage("tile3.png");
     
 }
@@ -66,19 +66,32 @@ void Level::drawDebug()
 void Level::parseLevel()
 {
     ofxXmlSettings data;
-    data.loadFile("level2.tmx");
+    data.loadFile("level-sketch.tmx");
     data.pushTag("map");
-    data.pushTag("objectgroup");
     
-    int numTags = data.getNumTags("object");
-    for(int i=0;i<numTags;i++)
+    int numGroups = data.getNumTags("objectgroup");
+    
+    for(int i=0;i<numGroups;i++)
     {
-        int baseX = data.getAttribute("object","x",0,i);
-        int baseY = data.getAttribute("object","y",0,i);
-        data.pushTag("object",i);
-        string vertexData = data.getAttribute("polyline","points","");
-        parsePoly(baseX, baseY, vertexData);
-        data.popTag();
+        string objName = data.getAttribute("objectgroup", "name", " ",i);
+        if(ofIsStringInString(objName, "boundariesTile"))
+        {                    
+            data.pushTag("objectgroup",i);
+            
+            int numTags = data.getNumTags("object");
+            for(int j=0;j<numTags;j++)
+            {
+                int baseX = data.getAttribute("object","x",0,j);
+                int baseY = data.getAttribute("object","y",0,j);
+                cout<<"base:"<<baseX<<" x "<<baseY<<endl;
+                data.pushTag("object",j);
+                string vertexData = data.getAttribute("polyline","points","");
+                cout<<"data:"<<vertexData<<endl;
+                parsePoly(baseX, baseY, vertexData);
+                data.popTag();
+            }
+            data.popTag();
+        }
     }
 }
 

@@ -26,6 +26,7 @@ public:
 
     void addShips(const vector<ShipData> &shipsToAdd);
     ofVec2f getFrontPos();
+    bool checkTide(int x);
     
     
 private:

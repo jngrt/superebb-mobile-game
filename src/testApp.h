@@ -7,6 +7,7 @@
 #include "level.h"
 #include "boatChain.h"
 #include "waitingShips.h"
+#include "tideLine.h"
 
 class testApp : public ofxiPhoneApp{
 	
@@ -27,6 +28,8 @@ public:
     void gotMemoryWarning();
     void deviceOrientationChanged(int newOrientation);
     
+    void resetGame();
+    
     WaitingShips waitingShips;
     ofxBox2d box2d;
     //ofAppiPhoneWindow * window;
@@ -35,7 +38,12 @@ public:
     BoatChain chain;
     ofPoint camera;
     ofVec2f lastTouch;
+    TideLine tideLine;
     float desiredAngle;
+    float time;
+    int score;
+    
+    enum {INTRO,GAME,END}gameState;
 
 };
 

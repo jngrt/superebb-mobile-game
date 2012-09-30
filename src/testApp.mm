@@ -24,60 +24,110 @@ void testApp::setup(){
     waitingShips.setup();
     level.filterShips(waitingShips.ships);
     
+    tideLine.setup();
+    
+    score = 0;
+    
+    gameState = INTRO;
+    
+    
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    
-    vector<ShipData> shipsNear;
-    waitingShips.getShipsNearby(chain.getFrontPos(), shipsNear);
-    if(shipsNear.size()>0)
+    if(gameState == INTRO)
     {
-        chain.addShips(shipsNear);
+        
     }
-    
-    chain.update();    
-    
-    box2d.update();
-    
-    camera.set(-chain.getFrontPos());
-    camera += ofPoint(240,160);
+    else if(gameState == GAME)
+    {
+        
+        if( ! chain.checkTide(tideLine.x) )
+        {
+            gameState = END;
+            return;
+        }
+        
+        vector<ShipData> shipsNear;
+        waitingShips.getShipsNearby(chain.getFrontPos(), shipsNear);
+        
+        if(shipsNear.size()>0)
+        {
+            chain.addShips(shipsNear);
+        }
+        
+        chain.update();
+        
+        tideLine.update();
+        
+        box2d.update();
+        
+        camera.set(-chain.getFrontPos());
+        camera += ofPoint(240,160);
+    }
+    else if(gameState == END)
+    {
+        
+    }
     
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
  
-    ofPushMatrix();
-    ofTranslate(camera);
-    level.draw(camera);
-    chain.draw();
-    waitingShips.draw();
-    
-    ofSetHexColor(0x00ff00);
-    ofCircle(0,0,4);
-    
-    ofSetHexColor(0xffff00);
-    ofCircle(1410,940,6);
-    
-    ofPopMatrix();
-    
-    ofPushMatrix();
-    ofSetHexColor(0x008800);
-    ofScale(0.05, 0.05);
-    level.drawDebug();
-    ofSetHexColor(0x00ff00);
-    chain.drawDebug();
-    ofSetHexColor(0x880000);
-    waitingShips.drawDebug();
-    ofPopMatrix();
+    if(gameState == INTRO)
+    {
+        ofSetHexColor(0x000000);
+        ofDrawBitmapString("TOUCH TO START", 200, 120);
+    }
+    else if( gameState == GAME)
+    {
+        ofPushMatrix();
+        ofTranslate(camera);
+
+        level.draw(camera);
+        tideLine.draw(camera);
+        chain.draw();
+        waitingShips.draw();
+
+        ofSetHexColor(0x00ff00);
+        ofCircle(0,0,4);
+
+        ofSetHexColor(0xffff00);
+        ofCircle(1410,940,6);
+
+        ofPopMatrix();
+
+        ofPushMatrix();
+        ofSetHexColor(0x008800);
+        ofScale(0.05, 0.05);
+        level.drawDebug();
+        ofSetHexColor(0x00ff00);
+        chain.drawDebug();
+        ofSetHexColor(0x880000);
+        waitingShips.drawDebug();
+        tideLine.drawDebug(camera);
+        ofPopMatrix();
+
+      
+    }
+    else if( gameState == END)
+    {
+        ofSetHexColor(0x000000);
+        ofDrawBitmapString("END OF GAME", 200, 120);
+    }
     
     string info = "";
-	info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
+    info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
     info += "camera: "+ofToString(camera.x)+", "+ofToString(camera.y)+"\n";
-	ofSetHexColor(0x444342);
-	ofDrawBitmapString(info, 230, 30);
+    ofSetHexColor(0x444342);
+    ofDrawBitmapString(info, 230, 30);
     
+}
+
+void testApp::resetGame()
+{
+    gameState = INTRO;
     
 }
 
@@ -89,12 +139,18 @@ void testApp::exit(){
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
     //level.checkInside(ofVec2f(touch.x-camera.x,touch.y-camera.y));
-    touchMoved(touch);
+    if(gameState == INTRO)
+        gameState = GAME;
+    else if( gameState == GAME)
+        touchMoved(touch);
+    else if( gameState == END)
+        resetGame();
 }
 
 //--------------------------------------------------------------
 void testApp::touchMoved(ofTouchEventArgs & touch){
-   chain.updateAngle(touch.x-camera.x,touch.y-camera.y);
+   if(gameState == GAME)
+       chain.updateAngle(touch.x-camera.x,touch.y-camera.y);
     
 }
 
