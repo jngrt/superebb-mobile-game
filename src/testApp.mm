@@ -30,7 +30,7 @@ void testApp::setup(){
     
     gameState = INTRO;
     
-    
+    drawDebug = false;
 }
 
 //--------------------------------------------------------------
@@ -85,8 +85,9 @@ void testApp::draw(){
         ofPushMatrix();
         ofTranslate(camera);
 
-        level.draw(camera);
+        level.draw(camera,drawDebug);
         tideLine.draw(camera);
+        ofSetHexColor(0xffffff);
         chain.draw();
         waitingShips.draw();
 
@@ -98,16 +99,19 @@ void testApp::draw(){
 
         ofPopMatrix();
 
-        ofPushMatrix();
-        ofSetHexColor(0x008800);
-        ofScale(0.05, 0.05);
-        level.drawDebug();
-        ofSetHexColor(0x00ff00);
-        chain.drawDebug();
-        ofSetHexColor(0x880000);
-        waitingShips.drawDebug();
-        tideLine.drawDebug(camera);
-        ofPopMatrix();
+        if(drawDebug)
+        {
+            ofPushMatrix();
+            ofSetHexColor(0x008800);
+            ofScale(0.05, 0.05);
+            level.drawDebug();
+            ofSetHexColor(0x00ff00);
+            chain.drawDebug();
+            ofSetHexColor(0x880000);
+            waitingShips.drawDebug();
+            tideLine.drawDebug(camera);
+            ofPopMatrix();
+        }
 
       
     }
@@ -161,7 +165,7 @@ void testApp::touchUp(ofTouchEventArgs & touch){
 
 //--------------------------------------------------------------
 void testApp::touchDoubleTap(ofTouchEventArgs & touch){
-
+    drawDebug = !drawDebug;
 }
 
 //--------------------------------------------------------------

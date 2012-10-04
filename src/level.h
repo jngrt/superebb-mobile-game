@@ -17,7 +17,8 @@
 class Level{
 public:
     void setup(ofxBox2d& box2d, int windowWidth);
-    void draw(const ofPoint & camera);
+    void draw(const ofPoint & camera,bool drawPolys=false);
+    void drawPoly(int i);
     void drawDebug();
     bool checkInside(ofVec2f point);
     void filterShips(vector<ShipData>& data);
@@ -30,7 +31,9 @@ private:
     
     int windowWidth;
     ofxBox2d box2d;
-    vector<ofxBox2dPolygon> polyLines;
+    vector<ofxBox2dPolygon> tileLines1;
+    vector<ofxBox2dPolygon> tileLines2;
+    vector<ofxBox2dPolygon> tileLines3;
     ofImage tileImage1;
     ofImage tileImage2;
     ofImage tileImage3;

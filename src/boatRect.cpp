@@ -24,5 +24,20 @@ ofVec2f BoatRect::getDirection()
     b2Vec2 dir = body->GetWorldVector(b2Vec2(-1,0));
     return ofVec2f(dir.x,dir.y);
 }
+void BoatRect::setImageData(ofImage * img, float w, float h)
+{
+    this->img = img;
+    this->h = h;
+    this->w = w;
+}
 
+void BoatRect::drawGraphics()
+{
+    ofPushMatrix();
+     
+    ofTranslate(this->getPosition().x, this->getPosition().y);
+    ofRotate(this->getRotation()+180.0);
+    img->draw(0,0);
+    ofPopMatrix();
+}
 

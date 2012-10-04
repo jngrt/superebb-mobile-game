@@ -40,6 +40,9 @@ private:
     ofVec2f lastPoint;
     
     ofxBox2d box2d;
+    
+    ofImage tugImg;
+    ofImage boatImg;
 };
 
 

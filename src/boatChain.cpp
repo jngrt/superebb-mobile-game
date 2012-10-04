@@ -18,8 +18,14 @@ void BoatChain::setup(ofxBox2d& box2d)
     //makeFront(box2d);
     makeFront();
     
-    chain.front().addImpulseForce(ofVec2f(1.0,1.0), 1.0);
+    //chain.front().addImpulseForce(ofVec2f(1.0,1.0), 1.0);
+    chain.front().addImpulseForce(ofVec2f(0.1,0.1), 1.0);
     desiredAngle = 90 * DEG_TO_RAD;
+    
+    tugImg.loadImage("tug_30.png");
+    boatImg.loadImage("cargoboat1_30.png");
+    tugImg.setAnchorPercent(0.5, 0.5);
+    boatImg.setAnchorPercent(0.5, 0.5);
     
 }
 void BoatChain::update()
@@ -94,16 +100,17 @@ bool BoatChain::checkTide(int x)
 }
 void BoatChain::draw()
 {
-    ofColor colors[] = {ofColor(240,200,200),ofColor(180,140,140),ofColor(110,70,70),ofColor(50,10,10)};
+    ofColor colors[] = {ofColor(200,200,200),ofColor(80,80,80),ofColor(50,50,255),ofColor(50,255,255)};
+    ofEnableAlphaBlending();
     for(int i=0;i<chain.size();i++)
     {
         if(chain[i].multiplier > -1)
             ofSetColor(colors[chain[i].multiplier]);
         
-        chain[i].draw();
-    
+        //chain[i].draw();
+        chain[i].drawGraphics();
     }
-        
+    ofDisableAlphaBlending();
     ofSetHexColor(0x0000ff);
     ofCircle(lastPoint.x, lastPoint.y, 2);
 }
@@ -120,10 +127,12 @@ void BoatChain::makeFront()
 {
     BoatRect front;
     front.multiplier = -1;
-    front.setPhysics(10.0, 0.1, 0.1);
+    front.setPhysics(10.0, 0.0, 0.1);
     front.setDamping(0.2);
     front.setRotationFriction(0.3);
-	front.setup(box2d.getWorld(), 1380, 900, 10, 4);
+	//front.setup(box2d.getWorld(), 4233, 2348, 10, 5);
+    front.setup(box2d.getWorld(), 5821, 2155, 10, 5);
+    front.setImageData(&tugImg,10,5);
     chain.push_back(front);
 }
 void BoatChain::addShips(const vector<ShipData> &shipsToAdd)
@@ -150,7 +159,7 @@ void BoatChain::addShip(ShipData data)
 {
     ofVec2f dir = chain.back().getDirection();
     ofVec2f prevPos = chain.back().getPosition();
-    ofVec2f newPos = prevPos - dir * 22.0f;
+    ofVec2f newPos = prevPos - dir * ((chain.size()==1)?26:31);
     
     
     BoatRect boat;
@@ -159,20 +168,21 @@ void BoatChain::addShip(ShipData data)
     boat.setPhysics(0.001, 0.0, 0.8);
     boat.setDamping(0.95);
     boat.setRotationFriction(0.95);
-    boat.setup(box2d.getWorld(),newPos.x,newPos.y,10,4);
+    boat.setup(box2d.getWorld(),newPos.x,newPos.y,15,4.5);
 	boat.body->SetTransform(boat.body->GetPosition(), chain.back().body->GetAngle());
     boat.body->SetAngularVelocity(0.0);
+    boat.setImageData(&boatImg,15,4.5);
     //boat.setup(box2d.getWorld(), chain.back().getPosition().x+22, chain.back().getPosition().y, 10, 4);
     
     b2Vec2 jointPos = chain.back().body->GetPosition();
-    jointPos += chain.back().body->GetWorldVector(b2Vec2(0.2,0));
+    jointPos += chain.back().body->GetWorldVector(b2Vec2((chain.size()==1)?0.2:0.3,0));
     
     b2RevoluteJointDef rjd;
     //rjd.Initialize(chain.back().body,boat.body,chain.back().body->GetPosition()+b2Vec2(0.2,0));
     rjd.Initialize(chain.back().body,boat.body,jointPos);
     rjd.collideConnected = false;
-    rjd.lowerAngle = -0.25f*b2_pi;
-    rjd.upperAngle = 0.25f*b2_pi;
+    rjd.lowerAngle = -0.4f*b2_pi;
+    rjd.upperAngle = 0.4f*b2_pi;
     rjd.enableLimit = true;
     boat.joint = (b2RevoluteJoint *)box2d.getWorld()->CreateJoint(&rjd);
     

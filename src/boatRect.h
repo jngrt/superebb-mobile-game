@@ -22,6 +22,11 @@ public:
     b2RevoluteJoint * joint;
     void killOrthogonalVelocity();
     ofVec2f getDirection();
+    void drawGraphics();
+    void setImageData(ofImage * img, float w, float h);
+    ofImage * img;
+    float w;
+    float h;
 };
 
 #endif

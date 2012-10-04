@@ -27,40 +27,52 @@ void Level::setup(ofxBox2d& box2d, int windowWidth)
     poly.create(box2d.getWorld());
     polyLines.push_back(poly);*/
     
-    tileImage1.loadImage("tile1b.png");
-    tileImage2.loadImage("tile2b.png");
-    tileImage3.loadImage("tile3.png");
+    //tileImage1.loadImage("tile1b.png");
+    //tileImage2.loadImage("tile2b.png");
+    //tileImage3.loadImage("tile3.png");
+    
+    tileImage1.loadImage("tile1_low.jpg");
+    tileImage2.loadImage("tile2_low.jpg");
+    tileImage3.loadImage("tile3_low.jpg");
     
 }
 
-void Level::draw(const ofPoint & camera)
+void Level::draw(const ofPoint & camera, bool drawPolys)
 {
     ofSetHexColor(0xffffff);
     if(-camera.x < 2048)
+    {
         tileImage1.draw(0,0);
+        if(drawPolys)drawPoly(0);
+    }
     if(-camera.x > 2048-windowWidth &&
        -camera.x < 4096)
+    {
         tileImage2.draw(2048,1024);
+        if(drawPolys)drawPoly(1);
+    }
     if(-camera.x > 4096-windowWidth &&
        -camera.x < 6144)
+    {
         tileImage3.draw(4096,1024);
-    
-    ofSetHexColor(0xff0000);
-    for(int i=0;i<polyLines.size();i++)
+        if(drawPolys)drawPoly(2);
+    }
+       
+}
+void Level::drawPoly(int tileIndex)
+{
+    vector<ofxBox2dPolygon> * polys = ((tileIndex==0)? &tileLines1:(tileIndex==1)? &tileLines2:&tileLines3);
+    for(int i=0;i<polys->size();i++)
     {
         //ofSetColor( i*50,0,0);
-        polyLines[i].draw();
+        (*polys)[i].draw();
     }
 }
 
 void Level::drawDebug()
 {
-    
-    for(int i=0;i<polyLines.size();i++)
-    {
-        //ofSetColor( i*50,0,0);
-        polyLines[i].draw();
-    } 
+    for(int i=0;i<3;i++)
+        drawPoly(i);
 }
 
 void Level::parseLevel()
@@ -99,13 +111,18 @@ void Level::parseLevel()
 bool Level::checkInside(ofVec2f point)
 {
     //cout<<"Check polys. inside:";
-    for( int i=0;i<polyLines.size();i++)
-        if( insidePolygon(point, polyLines[i]) )
-        {
-            //cout<<i<<endl;
+    for( int i=0;i<tileLines1.size();i++)
+        if( insidePolygon(point, tileLines1[i]) )
             return true;
-        }
-    //cout<<" none"<<endl;
+
+    for( int i=0;i<tileLines2.size();i++)
+        if( insidePolygon(point, tileLines2[i]) )
+            return true;
+
+    for( int i=0;i<tileLines3.size();i++)
+        if( insidePolygon(point, tileLines3[i]) )
+            return true;
+
     return false;
 }
 
@@ -128,14 +145,20 @@ void Level::parsePoly(int baseX, int baseY, string vertexData)
     cout<<"parsePoly:"<<baseX<<" , "<<baseY<<endl;
     vector<string> vertices = ofSplitString(vertexData, " ");
     ofxBox2dPolygon poly;
+    float total=0;
     for(int i=0;i<vertices.size();i++)
     {
         vector<string> vertex = ofSplitString(vertices[i], ",");
         poly.addVertex((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale);
+        total += (ofToInt(vertex[0])+baseX)*scale;
     }
-    //poly.close();
-    //poly.setPosition(-baseX*scale, -baseY*scale);
-    poly.create(box2d.getWorld());
     
-    polyLines.push_back(poly);
+    poly.create(box2d.getWorld());
+    float average = total / vertices.size();
+    int tileNr = average / 2048;
+   
+    if(tileNr==0) tileLines1.push_back(poly);
+    else if( tileNr==1) tileLines2.push_back(poly);
+    else tileLines3.push_back(poly);
+    
 }

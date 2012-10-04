@@ -12,7 +12,7 @@ void TideLine::setup()
 {
     speed = 0.5;
     lastUpdateMs = ofGetElapsedTimeMillis();
-    x = 2400;
+    x = 2048*3;
 }
 
 void TideLine::update()

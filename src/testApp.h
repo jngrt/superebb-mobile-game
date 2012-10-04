@@ -43,6 +43,8 @@ public:
     float time;
     int score;
     
+    bool drawDebug;
+    
     enum {INTRO,GAME,END}gameState;
 
 };
