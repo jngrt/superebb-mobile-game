@@ -85,8 +85,8 @@ void testApp::draw(){
         ofPushMatrix();
         ofTranslate(camera);
 
-        level.draw(camera,drawDebug);
         tideLine.draw(camera);
+        level.draw(camera,drawDebug);
         ofSetHexColor(0xffffff);
         chain.draw();
         waitingShips.draw();

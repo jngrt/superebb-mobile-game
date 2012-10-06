@@ -31,9 +31,9 @@ void Level::setup(ofxBox2d& box2d, int windowWidth)
     //tileImage2.loadImage("tile2b.png");
     //tileImage3.loadImage("tile3.png");
     
-    tileImage1.loadImage("tile1_low.jpg");
-    tileImage2.loadImage("tile2_low.jpg");
-    tileImage3.loadImage("tile3_low.jpg");
+    tileImage1.loadImage("tile1_nw.png");
+    tileImage2.loadImage("tile2_nw.png");
+    tileImage3.loadImage("tile3_nw.png");
     
 }
 

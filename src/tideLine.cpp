@@ -25,10 +25,17 @@ void TideLine::update()
 
 void TideLine::draw(ofPoint camera)
 {
+    ofSetHexColor(0x5bc0dc);
+    ofRect(-camera.x,-camera.y,x,-camera.y+320);
+    ofSetHexColor(0xdad5bf);
+    ofRect(x,-camera.y,-camera.x+480,-camera.y+320);
+    
+    /*
     ofSetLineWidth(4);
     ofSetHexColor(0xff0000);
     ofLine(x, -1*camera.y, x, -1*camera.y + 320);
     ofSetLineWidth(1);
+     */
 }
 void TideLine::drawDebug(ofPoint camera)
 {
