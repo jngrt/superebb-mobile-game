@@ -36,6 +36,10 @@ void Level::setup(ofxBox2d& box2d, int windowWidth)
     tileImage3.loadImage("tile3_nw.png");
     
 }
+void Level::reset()
+{
+    
+}
 
 void Level::draw(const ofPoint & camera, bool drawPolys)
 {

@@ -14,6 +14,11 @@ void TideLine::setup()
     lastUpdateMs = ofGetElapsedTimeMillis();
     x = 2048*3;
 }
+void TideLine::reset()
+{
+    x = 2048*3;
+    lastUpdateMs = ofGetElapsedTimeMillis();
+}
 
 void TideLine::update()
 {

@@ -22,6 +22,7 @@ public:
     void drawDebug();
     bool checkInside(ofVec2f point);
     void filterShips(vector<ShipData>& data);
+    void reset();
     
     float scale;
     

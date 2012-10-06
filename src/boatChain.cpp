@@ -29,6 +29,16 @@ void BoatChain::setup(ofxBox2d& box2d)
     
     length = 0;
 }
+void BoatChain::reset()
+{
+    collapseBoats(0);
+    box2d.world->DestroyBody(chain.front().body);
+    chain.erase(chain.begin());
+    makeFront();
+    chain.front().addImpulseForce(ofVec2f(0.1,0.1), 1.0);
+    desiredAngle = 90 * DEG_TO_RAD;
+    length = 0;
+}
 void BoatChain::update()
 {
     /*
@@ -80,6 +90,7 @@ void BoatChain::updateAngle(float inputX, float inputY)
     desiredAngle = atan2f(-toTarget.x,toTarget.y);
 
 }
+
 
 bool BoatChain::checkTide(int x)
 {

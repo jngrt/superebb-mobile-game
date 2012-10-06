@@ -22,12 +22,16 @@ public:
     void draw();
     void drawDebug();
     void update();
+    void reset();
     void updateAngle(float touchX,float touchY);
-
+    void bump(float touchX,float touchY);
+    
     void addShips(const vector<ShipData> &shipsToAdd);
     ofVec2f getFrontPos();
     bool checkTide(int x);
     int getLength();
+    
+    
     
 private:
     void calculateLength();

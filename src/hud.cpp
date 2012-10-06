@@ -10,7 +10,7 @@
 
 void Hud::setup(int levelStart,int levelEnd)
 {
-    scoreFont.loadFont("NothingYouCouldDo.ttf", 24);
+    scoreFont.loadFont("GloriaHallelujah.ttf", 20);
     this->levelStart = levelStart;
     this->levelEnd  = levelEnd;
     levelLength = levelStart-levelEnd;

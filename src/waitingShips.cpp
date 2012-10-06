@@ -23,6 +23,12 @@ void WaitingShips::setup()
     
     parseData();
 }
+void WaitingShips::reset()
+{
+    for(int i=0;i<ships.size();i++)
+        if( !ships[i].invalidLocation && ships[i].pickedUp )
+            ships[i].pickedUp = false;
+}
 
 void WaitingShips::draw()
 {

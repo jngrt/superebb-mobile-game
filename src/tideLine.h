@@ -19,6 +19,7 @@ public:
     float speed;
     int lastUpdateMs;
     void setup();
+    void reset();
     void update();
     void draw(ofPoint camera);
     void drawDebug(ofPoint camera);

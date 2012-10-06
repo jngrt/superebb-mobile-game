@@ -18,6 +18,7 @@ class WaitingShips
 {
 public:
     void setup();
+    void reset();
     void draw();
     void drawDebug();
     void getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear);    

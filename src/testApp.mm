@@ -140,6 +140,13 @@ void testApp::resetGame()
 {
     gameState = INTRO;
     
+    level.reset();
+    chain.reset();
+    waitingShips.reset();
+    tideLine.reset();
+    
+    score = 0;
+    
 }
 
 //--------------------------------------------------------------
