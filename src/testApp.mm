@@ -26,6 +26,11 @@ void testApp::setup(){
     
     tideLine.setup();
     
+    levelStart = 2048*3;
+    levelEnd = 820;
+    
+    hud.setup(levelStart,levelEnd);
+    
     score = 0;
     
     gameState = INTRO;
@@ -98,7 +103,9 @@ void testApp::draw(){
         ofCircle(1410,940,6);
 
         ofPopMatrix();
-
+        
+        hud.draw(chain.getLength(),chain.getFrontPos().x, tideLine.x);
+        
         if(drawDebug)
         {
             ofPushMatrix();

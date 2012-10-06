@@ -70,6 +70,7 @@
 		8C446D2A16063245007E90FE /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446CF716063244007E90FE /* json_writer.cpp */; };
 		8C446D2C16063245007E90FE /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C446CFA16063244007E90FE /* ofxJSONElement.cpp */; };
 		8CA40F7E161880A9006EAD5D /* tideLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CA40F7D161880A9006EAD5D /* tideLine.cpp */; };
+		8CB39BC2162036180070793D /* hud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8CB39BC1162036180070793D /* hud.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BB24DD8F10DA77E000E9C588 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24DD8C10DA77E000E9C588 /* Default.png */; };
@@ -241,6 +242,8 @@
 		8CA40F7C1618809B006EAD5D /* tideLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tideLine.h; sourceTree = "<group>"; };
 		8CA40F7D161880A9006EAD5D /* tideLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tideLine.cpp; sourceTree = "<group>"; };
 		8CB39BC0162033260070793D /* hud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hud.h; sourceTree = "<group>"; };
+		8CB39BC1162036180070793D /* hud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hud.cpp; sourceTree = "<group>"; };
+		8CB39BC316203EF10070793D /* ofxCenteredTrueTypeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCenteredTrueTypeFont.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DD8C10DA77E000E9C588 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -692,6 +695,8 @@
 				8CA40F7C1618809B006EAD5D /* tideLine.h */,
 				8CA40F7D161880A9006EAD5D /* tideLine.cpp */,
 				8CB39BC0162033260070793D /* hud.h */,
+				8CB39BC1162036180070793D /* hud.cpp */,
+				8CB39BC316203EF10070793D /* ofxCenteredTrueTypeFont.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -854,6 +859,7 @@
 				8C446D2A16063245007E90FE /* json_writer.cpp in Sources */,
 				8C446D2C16063245007E90FE /* ofxJSONElement.cpp in Sources */,
 				8CA40F7E161880A9006EAD5D /* tideLine.cpp in Sources */,
+				8CB39BC2162036180070793D /* hud.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

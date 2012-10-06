@@ -27,9 +27,10 @@ public:
     void addShips(const vector<ShipData> &shipsToAdd);
     ofVec2f getFrontPos();
     bool checkTide(int x);
-    
+    int getLength();
     
 private:
+    void calculateLength();
     void makeFront();
     void addShip(ShipData data);
     void collapseBoats(int index);
@@ -43,6 +44,7 @@ private:
     
     ofImage tugImg;
     ofImage boatImg;
+    int length;
 };
 
 

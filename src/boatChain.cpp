@@ -27,6 +27,7 @@ void BoatChain::setup(ofxBox2d& box2d)
     tugImg.setAnchorPercent(0.5, 0.5);
     boatImg.setAnchorPercent(0.5, 0.5);
     
+    length = 0;
 }
 void BoatChain::update()
 {
@@ -92,11 +93,21 @@ bool BoatChain::checkTide(int x)
         if(chain[i].getPosition().x > x)
         {
             collapseBoats(i-1);
+            calculateLength();
             break;
         }
     }
     return true;
-    
+}
+int BoatChain::getLength()
+{
+    return length;
+}
+void BoatChain::calculateLength()
+{
+    length = 0;
+    for(int i=1;i<chain.size();i++)
+        length += pow(5.0, chain[i].multiplier);
 }
 void BoatChain::draw()
 {
@@ -148,7 +159,7 @@ void BoatChain::addShips(const vector<ShipData> &shipsToAdd)
         addShip(shipsToAdd[i]);
         checkBoats();
     }
-    
+    calculateLength();
     //cout<<"after:";
     //for(int i=0;i<chain.size();i++)
     //    cout<<chain[i].multiplier<<":";

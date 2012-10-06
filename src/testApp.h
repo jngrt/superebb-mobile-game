@@ -8,6 +8,7 @@
 #include "boatChain.h"
 #include "waitingShips.h"
 #include "tideLine.h"
+#include "hud.h"
 
 class testApp : public ofxiPhoneApp{
 	
@@ -39,6 +40,8 @@ public:
     ofPoint camera;
     ofVec2f lastTouch;
     TideLine tideLine;
+    Hud hud;
+    
     float desiredAngle;
     float time;
     int score;
@@ -46,6 +49,9 @@ public:
     bool drawDebug;
     
     enum {INTRO,GAME,END}gameState;
+    
+    int levelStart;
+    int levelEnd;
 
 };
 
