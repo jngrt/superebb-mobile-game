@@ -57,11 +57,11 @@ void BoatChain::update()
     if(dot>0.0)
     {
         b2Vec2 force = linVelVec;
-        force *= -10.0;
+        force *= -(10.0 * chain.size());
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
     }else if( vel.Length() < 8.0){
         b2Vec2 force = linVelVec;
-        force *= 5.0;
+        force *= (5.0*chain.size());
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
         //chain.front().addForce(ofVec2f(force.x,force.y), 1.0);
     }
@@ -176,7 +176,7 @@ void BoatChain::addShip(ShipData data)
     BoatRect boat;
     boat.multiplier = 0;
     boat.data = data;
-    boat.setPhysics(0.01, 0.0, 0.0);
+    boat.setPhysics(1.0, 0.0, 0.0);
     boat.setDamping(0.1);
     boat.setRotationFriction(0.9);
     boat.setup(box2d.getWorld(),newPos.x,newPos.y,11.5,4.5);
