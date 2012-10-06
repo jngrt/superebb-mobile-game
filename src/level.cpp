@@ -78,7 +78,7 @@ void Level::drawDebug()
 void Level::parseLevel()
 {
     ofxXmlSettings data;
-    data.loadFile("level-sketch.tmx");
+    data.loadFile("level-sketch2.tmx");
     data.pushTag("map");
     
     int numGroups = data.getNumTags("objectgroup");

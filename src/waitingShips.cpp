@@ -58,7 +58,7 @@ void WaitingShips::drawDebug()
 void WaitingShips::getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear )
 {
     for(int i=0;i<ships.size();i++)
-        if( !ships[i].pickedUp && (point - ships[i].location).length()<20.0)
+        if( !ships[i].invalidLocation && !ships[i].pickedUp && (point - ships[i].location).length()<20.0)
         {
             ships[i].pickedUp = true;
             shipsNear.push_back(ships[i]);
