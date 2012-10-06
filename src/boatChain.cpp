@@ -23,7 +23,7 @@ void BoatChain::setup(ofxBox2d& box2d)
     desiredAngle = 90 * DEG_TO_RAD;
     
     tugImg.loadImage("tug_30.png");
-    boatImg.loadImage("cargoboat1_30.png");
+    boatImg.loadImage("cargoboat1_23.png");
     tugImg.setAnchorPercent(0.5, 0.5);
     boatImg.setAnchorPercent(0.5, 0.5);
     
@@ -138,7 +138,7 @@ void BoatChain::makeFront()
 {
     BoatRect front;
     front.multiplier = -1;
-    front.setPhysics(10.0, 0.0, 0.1);
+    front.setPhysics(10.0, 0.0, 0.0);
     front.setDamping(0.2);
     front.setRotationFriction(0.3);
 	//front.setup(box2d.getWorld(), 4233, 2348, 10, 5);
@@ -168,33 +168,88 @@ void BoatChain::addShips(const vector<ShipData> &shipsToAdd)
 }
 void BoatChain::addShip(ShipData data)
 {
-    ofVec2f dir = chain.back().getDirection();
+    //ofVec2f dir = chain.back().getDirection();
     ofVec2f prevPos = chain.back().getPosition();
-    ofVec2f newPos = prevPos - dir * ((chain.size()==1)?26:31);
-    
+    //ofVec2f newPos = prevPos - dir * ((chain.size()==1)?26:29);
+    ofVec2f newPos = prevPos;
     
     BoatRect boat;
     boat.multiplier = 0;
     boat.data = data;
-    boat.setPhysics(0.001, 0.0, 0.8);
-    boat.setDamping(0.95);
-    boat.setRotationFriction(0.95);
-    boat.setup(box2d.getWorld(),newPos.x,newPos.y,15,4.5);
+    boat.setPhysics(0.01, 0.0, 0.0);
+    boat.setDamping(0.1);
+    boat.setRotationFriction(0.9);
+    boat.setup(box2d.getWorld(),newPos.x,newPos.y,11.5,4.5);
 	boat.body->SetTransform(boat.body->GetPosition(), chain.back().body->GetAngle());
     boat.body->SetAngularVelocity(0.0);
     boat.setImageData(&boatImg,15,4.5);
     //boat.setup(box2d.getWorld(), chain.back().getPosition().x+22, chain.back().getPosition().y, 10, 4);
     
+    //
+    
+    /*
+    //SIMPLE JOINTS
+    ofxBox2dJoint joint;
+    joint.setup(box2d.getWorld(),chain.back().body,boat.body,
+                chain.back().body->GetWorldPoint(b2Vec2(0.3,0)),
+                boat.body->GetWorldPoint(b2Vec2(-0.3,0)), 4.0, 1.0, true);
+                //);//,b2Vec2(0.2,0),b2Vec2(-0.2,0));
+    joint.setLength(3.0);
+    //joint.setDamping(1.0);
+    //joint.setFrequency(15.0);
+    */
+    
+    /*
+    //REVOLUTE JOINTS
     b2Vec2 jointPos = chain.back().body->GetPosition();
-    jointPos += chain.back().body->GetWorldVector(b2Vec2((chain.size()==1)?0.2:0.3,0));
+    jointPos += chain.back().body->GetWorldVector(b2Vec2((chain.size()==1)?0.2:0.23,0));
     
     b2RevoluteJointDef rjd;
     //rjd.Initialize(chain.back().body,boat.body,chain.back().body->GetPosition()+b2Vec2(0.2,0));
-    rjd.Initialize(chain.back().body,boat.body,jointPos);
+    //rjd.Initialize(chain.back().body,boat.body,jointPos);
+    //rjd.collideConnected = false;
+    //rjd.lowerAngle = -0.6f*b2_pi;
+    //rjd.upperAngle = 0.6f*b2_pi;
+    //rjd.enableLimit = true;
+    
+    
+    rjd.localAnchorA.Set((chain.size()==1)?0.4:0.4, 0);
+    rjd.localAnchorB.Set(-0.4, 0);
+    rjd.bodyA = chain.back().body;
+    rjd.bodyB = boat.body;
+    
+    boat.body->SetAngularDamping(1.0);
+    
+    boat.joint = (b2RevoluteJoint *)box2d.getWorld()->CreateJoint(&rjd);
+     */
+    
+    
+    
+    //REVOLUTE JOINTS WITH MOTOR
+    //b2Vec2 jointPos = chain.back().body->GetPosition();
+    //jointPos += chain.back().body->GetWorldVector(b2Vec2((chain.size()==1)?0.2:0.23,0));
+    
+    b2RevoluteJointDef rjd;
+    //rjd.Initialize(chain.back().body,boat.body,chain.back().body->GetPosition()+b2Vec2(0.2,0));
+    //rjd.Initialize(chain.back().body,boat.body,jointPos);
     rjd.collideConnected = false;
-    rjd.lowerAngle = -0.4f*b2_pi;
-    rjd.upperAngle = 0.4f*b2_pi;
+    rjd.lowerAngle = -0.6f*b2_pi;
+    rjd.upperAngle = 0.6f*b2_pi;
     rjd.enableLimit = true;
+    
+    
+    rjd.localAnchorA.Set((chain.size()==1)?0.36:0.41, 0);
+    rjd.localAnchorB.Set(-0.41, 0);
+    rjd.bodyA = chain.back().body;
+    rjd.bodyB = boat.body;
+    
+    //rjd.maxMotorTorque = 0.1f;
+    
+    //rjd.motorSpeed = 0.0f;
+    
+    //rjd.enableMotor = true;
+    //boat.body->SetAngularDamping(1.0);
+    
     boat.joint = (b2RevoluteJoint *)box2d.getWorld()->CreateJoint(&rjd);
     
     chain.push_back(boat);
