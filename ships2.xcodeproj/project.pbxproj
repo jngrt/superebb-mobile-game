@@ -244,6 +244,8 @@
 		8CB39BC0162033260070793D /* hud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hud.h; sourceTree = "<group>"; };
 		8CB39BC1162036180070793D /* hud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hud.cpp; sourceTree = "<group>"; };
 		8CB39BC316203EF10070793D /* ofxCenteredTrueTypeFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCenteredTrueTypeFont.h; sourceTree = "<group>"; };
+		8CB39BC41620BBD20070793D /* anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anim.h; sourceTree = "<group>"; };
+		8CB39BC51620C5FE0070793D /* scoreAnim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scoreAnim.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DD8C10DA77E000E9C588 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -697,6 +699,8 @@
 				8CB39BC0162033260070793D /* hud.h */,
 				8CB39BC1162036180070793D /* hud.cpp */,
 				8CB39BC316203EF10070793D /* ofxCenteredTrueTypeFont.h */,
+				8CB39BC41620BBD20070793D /* anim.h */,
+				8CB39BC51620C5FE0070793D /* scoreAnim.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

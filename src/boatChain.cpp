@@ -27,7 +27,25 @@ void BoatChain::setup(ofxBox2d& box2d)
     tugImg.setAnchorPercent(0.5, 0.5);
     boatImg.setAnchorPercent(0.5, 0.5);
     
+    animFont.loadFont("GloriaHallelujah.ttf", 18);
+    
     length = 0;
+    destroyIndex = -1;
+    lastChainDestroy = ofGetElapsedTimeMillis();
+    
+    ofAddListener(box2d.contactStartEvents, this, &BoatChain::contactStart);
+    //ofAddListener(box2d.contactEndEvents, this, &BoatChain::contactEnd);
+    
+    ping1.loadSound("ping1.wav");
+    ping1.setMultiPlay(true);
+    ping2.loadSound("ping2.wav");
+    ping2.setMultiPlay(true);
+    ping3.loadSound("ping3.wav");
+    ping3.setMultiPlay(true);
+    ping4.loadSound("ping4.wav");
+    ping4.setMultiPlay(true);
+    crash.loadSound("crash2.wav");
+    lastPing = ofGetElapsedTimeMillis();
 }
 void BoatChain::reset()
 {
@@ -38,9 +56,19 @@ void BoatChain::reset()
     chain.front().addImpulseForce(ofVec2f(0.1,0.1), 1.0);
     desiredAngle = 90 * DEG_TO_RAD;
     length = 0;
+    destroyIndex = -1;
+    anims.resize(0);
 }
 void BoatChain::update()
 {
+    if(destroyIndex != -1)
+    {
+        collapseBoats(destroyIndex-1);
+        calculateLength();
+        crash.play();
+        destroyIndex = -1;
+    }
+    
     /*
     *First orient the 
     //http://www.iforce2d.net/b2dtut/rotate-to-angle
@@ -52,7 +80,7 @@ void BoatChain::update()
     while ( totalRotation < -180 * DEG_TO_RAD ) totalRotation += 360 * DEG_TO_RAD;
     while ( totalRotation >  180 * DEG_TO_RAD ) totalRotation -= 360 * DEG_TO_RAD;    
     if(fabs(totalRotation)>2.0*DEG_TO_RAD)
-        chain.front().body->ApplyTorque( totalRotation < 0 ? -2 : 2 );
+        chain.front().body->ApplyTorque( totalRotation < 0 ? -4.0 : 4.0 );
     
     
     
@@ -68,10 +96,12 @@ void BoatChain::update()
     {
         b2Vec2 force = linVelVec;
         force *= -(10.0 * chain.size());
+        //force *= -10.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
     }else if( vel.Length() < 8.0){
         b2Vec2 force = linVelVec;
         force *= (5.0*chain.size());
+        //force *= 5.0;
         chain.front().body->ApplyForce(force, chain.front().body->GetWorldCenter());
         //chain.front().addForce(ofVec2f(force.x,force.y), 1.0);
     }
@@ -81,6 +111,18 @@ void BoatChain::update()
        chain[i].killOrthogonalVelocity();
     
     //cout<<"dir:"<<chain.front().getDirection().x<<" x "<<chain.front().getDirection().y<<endl;
+    
+    
+}
+
+void BoatChain::updateAnim()
+{
+    for(int i=anims.size()-1;i>=0;i--)
+    {
+        anims[i].update();
+        if(anims[i].isDone())
+            anims.erase(anims.begin()+i);
+    }
 }
 
 void BoatChain::updateAngle(float inputX, float inputY)
@@ -90,6 +132,10 @@ void BoatChain::updateAngle(float inputX, float inputY)
     desiredAngle = atan2f(-toTarget.x,toTarget.y);
 
 }
+
+//void BoatChain::checkPush
+
+
 
 
 bool BoatChain::checkTide(int x)
@@ -104,6 +150,7 @@ bool BoatChain::checkTide(int x)
         if(chain[i].getPosition().x > x)
         {
             collapseBoats(i-1);
+            crash.play();
             calculateLength();
             break;
         }
@@ -136,9 +183,19 @@ void BoatChain::draw()
     ofSetHexColor(0x0000ff);
     ofCircle(lastPoint.x, lastPoint.y, 2);
 }
+
 void BoatChain::drawDebug()
 {
     ofCircle(chain.front().getPosition(),20);
+}
+void BoatChain::drawAnim()
+{
+    ofEnableAlphaBlending();
+    for(int i=anims.size()-1;i>=0;i--)
+    {
+        anims[i].draw(animFont);
+    }
+    ofDisableAlphaBlending();
 }
 ofVec2f BoatChain::getFrontPos()
 {
@@ -171,6 +228,8 @@ void BoatChain::addShips(const vector<ShipData> &shipsToAdd)
         checkBoats();
     }
     calculateLength();
+    
+    if( ofGetElapsedTimeMillis()>lastPing+4)playSound(1);
     //cout<<"after:";
     //for(int i=0;i<chain.size();i++)
     //    cout<<chain[i].multiplier<<":";
@@ -187,9 +246,9 @@ void BoatChain::addShip(ShipData data)
     BoatRect boat;
     boat.multiplier = 0;
     boat.data = data;
-    boat.setPhysics(1.0, 0.0, 0.0);
+    boat.setPhysics(0.5, 0.0, 0.0);
     boat.setDamping(0.1);
-    boat.setRotationFriction(0.9);
+    boat.setRotationFriction(0.1);
     boat.setup(box2d.getWorld(),newPos.x,newPos.y,11.5,4.5);
 	boat.body->SetTransform(boat.body->GetPosition(), chain.back().body->GetAngle());
     boat.body->SetAngularVelocity(0.0);
@@ -244,8 +303,8 @@ void BoatChain::addShip(ShipData data)
     //rjd.Initialize(chain.back().body,boat.body,chain.back().body->GetPosition()+b2Vec2(0.2,0));
     //rjd.Initialize(chain.back().body,boat.body,jointPos);
     rjd.collideConnected = false;
-    rjd.lowerAngle = -0.6f*b2_pi;
-    rjd.upperAngle = 0.6f*b2_pi;
+    rjd.lowerAngle = -0.8f*b2_pi;
+    rjd.upperAngle = 0.8f*b2_pi;
     rjd.enableLimit = true;
     
     
@@ -260,6 +319,7 @@ void BoatChain::addShip(ShipData data)
     
     //rjd.enableMotor = true;
     //boat.body->SetAngularDamping(1.0);
+    boat.creation = ofGetElapsedTimeMillis();
     
     boat.joint = (b2RevoluteJoint *)box2d.getWorld()->CreateJoint(&rjd);
     
@@ -281,6 +341,11 @@ void BoatChain::checkBoats()
             if(++curLevelCount >= stackSize )
             {
                 chain[i].multiplier++;
+                playSound(chain[i].multiplier+1);
+                ScoreAnim anim;
+                anim.setup(chain[i].getPosition().x, chain[i].getPosition().y, ofToString(pow(5.0, chain[i].multiplier)));
+                anims.push_back(anim);
+                
                 collapseBoats(i);
                 checkBoats();
                 return;
@@ -293,12 +358,62 @@ void BoatChain::checkBoats()
         }
     }
 }
+void BoatChain::playSound(int id)
+{
+    //if( ofGetElapsedTimeMillis() < lastPing+2)return;
+    
+    lastPing = ofGetElapsedTimeMillis();
+    
+    switch(id){
+        case 1:ping1.play();break;
+        case 2:ping2.play();break;
+        case 3:ping3.play();break;
+        case 4:ping4.play();break;
+    }
+}
 void BoatChain::collapseBoats(int index)
 {
     for(int i=chain.size()-1;i>index;i--)
     {
-        box2d.world->DestroyBody(chain[i].body);
+        box2d.world->DestroyJoint(chain[i].joint);
+        //box2d.world->DestroyBody(chain[i].body);
+        chain[i].destroy();
         chain.erase(chain.begin()+i);
     }  
 
+}
+
+void BoatChain::contactStart(ofxBox2dContactArgs &e)
+{
+    
+    if(e.a == NULL || e.b == NULL)return;
+    
+    if(ofGetElapsedTimeMillis() < lastChainDestroy+1000 )return;
+    
+    b2Body * a = e.a->GetBody();
+    b2Body * b = e.b->GetBody();
+    
+    if( chain.size() > 2 &&
+        ( a == chain.front().body || b == chain.front().body ) &&
+        a != chain[1].body && b != chain[1].body )
+    {        
+        b2Body * other = (chain.front().body==a)?b:a;
+        
+        for(int i=2;i<chain.size();i++)
+            if( chain[i].body == other ){
+                if( ofGetElapsedTimeMillis() > chain[i].creation+400){
+                    //make ready for destruction, but don't destroy now,
+                    //things get freaky when you destroy while box2d is still solving contacts
+                    lastChainDestroy = ofGetElapsedTimeMillis();
+                    destroyIndex = i;
+                    return;
+                }
+            }
+        
+        
+    }
+}
+void BoatChain::contactEnd(ofxBox2dContactArgs &e)
+{
+    
 }

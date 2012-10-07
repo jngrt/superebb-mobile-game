@@ -21,6 +21,7 @@ public:
     void drawPoly(int i);
     void drawDebug();
     bool checkInside(ofVec2f point);
+    bool checkFinish(ofVec2f point);
     void filterShips(vector<ShipData>& data);
     void reset();
     
@@ -29,6 +30,8 @@ public:
 private:
     void parseLevel();
     void parsePoly(int baseX, int baseY, string vertexData);
+    void parseFinish(int baseX, int baseY, string vertexData);
+    
     
     int windowWidth;
     ofxBox2d box2d;
@@ -38,6 +41,11 @@ private:
     ofImage tileImage1;
     ofImage tileImage2;
     ofImage tileImage3;
+    
+    //ofxBox2dPolygon finish;
+    vector<ofVec2f> finish;
+    ofPolyline finishArea;
+    float finishRight;
 };
 
 #endif

@@ -53,6 +53,8 @@ public:
     int levelStart;
     int levelEnd;
 
+    ofSoundPlayer winSound;
+    ofSoundPlayer loseSound;
 };
 
 

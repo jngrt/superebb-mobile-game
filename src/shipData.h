@@ -19,6 +19,7 @@ public:
     string title;
     bool pickedUp;
     bool invalidLocation;
+    float rotation;
     
     void setup(float x,float y,string title)
     {
@@ -26,6 +27,7 @@ public:
         this->title = title;
         this->invalidLocation = false;
         this->pickedUp = false;
+        this->rotation = ofRandom(360);
     }
 
 };

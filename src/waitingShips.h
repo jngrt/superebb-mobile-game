@@ -13,14 +13,17 @@
 //#include "ofxJansson.h"
 #include "ofxJSONElement.h"
 #include "shipData.h"
+#include "anim.h"
 
 class WaitingShips
 {
 public:
     void setup();
     void reset();
-    void draw();
+    void update();
+    void draw(bool debug=false);
     void drawDebug();
+    void drawAnim(ofPoint camera);
     void getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear);    
     vector<ShipData> ships;    
     
@@ -32,8 +35,12 @@ private:
     ofVec2f gameEndCoord;
     ofVec2f realArea;
     ofVec2f gameArea;
-
     
+    ofImage img;
+
+    vector<Anim> anims;
+    
+    ofxCenteredTrueTypeFont animFont;
     
 };
 

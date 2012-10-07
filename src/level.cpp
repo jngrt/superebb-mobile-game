@@ -107,10 +107,58 @@ void Level::parseLevel()
                 data.popTag();
             }
             data.popTag();
+        }else if( ofIsStringInString(objName, "finishArea"))
+        {
+            data.pushTag("objectgroup",i);
+            int baseX = data.getAttribute("object","x",0);
+            int baseY = data.getAttribute("object","y",0);
+            
+            data.pushTag("object");
+            string vertexData = data.getAttribute("polygon","points","");
+            cout<<"finish data:"<<vertexData<<endl;
+            parseFinish(baseX, baseY, vertexData);
+            data.popTag();
+            data.popTag();
         }
     }
+    
+    
 }
-
+void Level::parseFinish(int baseX,int baseY,string vertexData)
+{
+    cout<<"parseFinish:"<<baseX<<" , "<<baseY<<endl;
+    vector<string> vertices = ofSplitString(vertexData, " ");
+    finishRight = 0;
+    //finish.resize(vertices.size());
+    for(int i=0;i<vertices.size();i++)
+    {
+        vector<string> vertex = ofSplitString(vertices[i], ",");
+        //finish.addVertex((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale);
+        //finish.push_back(ofVec2f((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale));
+        //total += (ofToInt(vertex[0])+baseX)*scale;
+        
+        //finish[i] = ofVec2f((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale);
+        int x = (ofToInt(vertex[0])+baseX)*scale;
+        int y = (ofToInt(vertex[1])+baseY)*scale;
+        finishArea.addVertex(x,y);
+        
+        if(x > finishRight )
+            finishRight = x;
+    }
+    //finish.set
+    //finish.create(box2d.getWorld());
+}
+bool Level::checkFinish(ofVec2f point)
+{
+    if(point.x < finishRight + 100){
+        
+        bool check = insidePolygon(point, finishArea);
+        //cout<<point.x<<" x "<<point.y<<"close to finish, finished?:"<<check<<endl;
+        return check;
+    }
+    return false;
+}
+                    
 
 bool Level::checkInside(ofVec2f point)
 {
@@ -156,8 +204,9 @@ void Level::parsePoly(int baseX, int baseY, string vertexData)
         poly.addVertex((ofToInt(vertex[0])+baseX)*scale , (ofToInt(vertex[1])+baseY)*scale);
         total += (ofToInt(vertex[0])+baseX)*scale;
     }
-    
+    poly.alive = false;
     poly.create(box2d.getWorld());
+    
     float average = total / vertices.size();
     int tileNr = average / 2048;
    

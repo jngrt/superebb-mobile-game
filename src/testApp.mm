@@ -36,6 +36,9 @@ void testApp::setup(){
     gameState = INTRO;
     
     drawDebug = false;
+    
+    loseSound.loadSound("lose_crash.wav");
+    winSound.loadSound("victory2.wav");
 }
 
 //--------------------------------------------------------------
@@ -50,8 +53,19 @@ void testApp::update(){
         if( ! chain.checkTide(tideLine.x) )
         {
             gameState = END;
+            loseSound.play();
             return;
         }
+        
+        if( level.checkFinish(chain.getFrontPos()))
+        {
+            cout<<"yay, win"<<endl;
+            winSound.play();
+            gameState = END;
+            return;
+        }
+        
+        waitingShips.update();
         
         vector<ShipData> shipsNear;
         waitingShips.getShipsNearby(chain.getFrontPos(), shipsNear);
@@ -62,6 +76,7 @@ void testApp::update(){
         }
         
         chain.update();
+        chain.updateAnim();
         
         tideLine.update();
         
@@ -94,14 +109,12 @@ void testApp::draw(){
         level.draw(camera,drawDebug);
         ofSetHexColor(0xffffff);
         chain.draw();
-        waitingShips.draw();
-
-        ofSetHexColor(0x00ff00);
-        ofCircle(0,0,4);
-
-        ofSetHexColor(0xffff00);
-        ofCircle(1410,940,6);
-
+        waitingShips.draw(drawDebug);
+        
+        waitingShips.drawAnim(camera);
+        chain.drawAnim();
+        
+        
         ofPopMatrix();
         
         hud.draw(chain.getLength(),chain.getFrontPos().x, tideLine.x);
@@ -180,6 +193,8 @@ void testApp::touchUp(ofTouchEventArgs & touch){
 //--------------------------------------------------------------
 void testApp::touchDoubleTap(ofTouchEventArgs & touch){
     drawDebug = !drawDebug;
+    //cout<<"double tap"<<endl;
+    //chain.
 }
 
 //--------------------------------------------------------------

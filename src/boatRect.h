@@ -17,6 +17,7 @@
 class BoatRect : public ofxBox2dRect
 {
 public:
+    int creation;
     int multiplier;
     ShipData data;
     b2RevoluteJoint * joint;
