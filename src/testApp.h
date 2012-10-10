@@ -55,6 +55,8 @@ public:
 
     ofSoundPlayer winSound;
     ofSoundPlayer loseSound;
+    
+    ofImage menuImage;
 };
 
 

@@ -57,11 +57,16 @@ void WaitingShips::drawAnim(ofPoint camera)
     ofDisableAlphaBlending();
 }
 
-void WaitingShips::draw(bool debug)
+void WaitingShips::draw(ofPoint camera, bool debug)
 {
     ofEnableAlphaBlending();
     for(int i=0;i<ships.size();i++)
     {
+        
+        if(ships[i].location.x < -camera.x - 20 ||
+           ships[i].location.x > -camera.x + 500
+        ) continue;
+        
         ofPushMatrix();
         ofTranslate(ships[i].location.x,ships[i].location.y);
         

@@ -17,13 +17,16 @@ class TideLine
 public:
     int x;
     float speed;
+    float startSpeed;
+    float endSpeed;
+    float accelSec;
     int lastUpdateMs;
     void setup();
     void reset();
     void update();
     void draw(ofPoint camera);
     void drawDebug(ofPoint camera);
-    
+    bool firstTime;
 };
 
 #endif

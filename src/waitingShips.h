@@ -21,7 +21,7 @@ public:
     void setup();
     void reset();
     void update();
-    void draw(bool debug=false);
+    void draw(ofPoint camera, bool debug=false);
     void drawDebug();
     void drawAnim(ofPoint camera);
     void getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear);    

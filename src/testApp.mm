@@ -39,6 +39,8 @@ void testApp::setup(){
     
     loseSound.loadSound("lose_crash.wav");
     winSound.loadSound("victory2.wav");
+    
+    menuImage.loadImage("sestart.jpg");
 }
 
 //--------------------------------------------------------------
@@ -97,8 +99,10 @@ void testApp::draw(){
  
     if(gameState == INTRO)
     {
-        ofSetHexColor(0x000000);
-        ofDrawBitmapString("TOUCH TO START", 200, 120);
+        //ofSetHexColor(0x000000);
+        //ofDrawBitmapString("TOUCH TO START", 200, 120);
+        ofSetHexColor(0xffffffff);
+        menuImage.draw(0,0);
     }
     else if( gameState == GAME)
     {
@@ -109,7 +113,7 @@ void testApp::draw(){
         level.draw(camera,drawDebug);
         ofSetHexColor(0xffffff);
         chain.draw();
-        waitingShips.draw(drawDebug);
+        waitingShips.draw(camera, drawDebug);
         
         waitingShips.drawAnim(camera);
         chain.drawAnim();
