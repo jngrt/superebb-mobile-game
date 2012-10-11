@@ -48,7 +48,7 @@ public:
     
     bool drawDebug;
     
-    enum {INTRO,GAME,END}gameState;
+    enum {INTRO,GAME,WIN,LOSE}gameState;
     
     int levelStart;
     int levelEnd;
@@ -57,6 +57,12 @@ public:
     ofSoundPlayer loseSound;
     
     ofImage menuImage;
+    ofImage winImage;
+    ofImage loseImage;
+    ofxCenteredTrueTypeFont scoreFont;
+    
+    int stateStartMs;
+    int stateDelay;
 };
 
 

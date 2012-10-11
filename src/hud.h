@@ -27,6 +27,7 @@ private:
     int levelStart;
     int levelEnd;
     float levelLength;
+    ofImage slider;
 };
 
 #endif

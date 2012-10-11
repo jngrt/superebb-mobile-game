@@ -41,6 +41,14 @@ void testApp::setup(){
     winSound.loadSound("victory2.wav");
     
     menuImage.loadImage("sestart.jpg");
+    winImage.loadImage("winscreen.png");
+    loseImage.loadImage("gameoverscreen.png");
+    
+    scoreFont.loadFont("GloriaHallelujah.ttf", 26);
+    
+    stateStartMs = ofGetElapsedTimeMillis();
+    stateDelay = 1800;
+    
 }
 
 //--------------------------------------------------------------
@@ -54,7 +62,8 @@ void testApp::update(){
         
         if( ! chain.checkTide(tideLine.x) )
         {
-            gameState = END;
+            gameState = LOSE;
+            stateStartMs = ofGetElapsedTimeMillis();
             loseSound.play();
             return;
         }
@@ -63,7 +72,8 @@ void testApp::update(){
         {
             cout<<"yay, win"<<endl;
             winSound.play();
-            gameState = END;
+            stateStartMs = ofGetElapsedTimeMillis();
+            gameState = WIN;
             return;
         }
         
@@ -87,24 +97,28 @@ void testApp::update(){
         camera.set(-chain.getFrontPos());
         camera += ofPoint(240,160);
     }
-    else if(gameState == END)
-    {
-        
-    }
     
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
- 
+    ofSetHexColor(0xffffffff);
+    
     if(gameState == INTRO)
     {
-        //ofSetHexColor(0x000000);
-        //ofDrawBitmapString("TOUCH TO START", 200, 120);
-        ofSetHexColor(0xffffffff);
         menuImage.draw(0,0);
+        
     }
-    else if( gameState == GAME)
+    else if( gameState == LOSE && ofGetElapsedTimeMillis() > stateStartMs + stateDelay )
+    {
+        loseImage.draw(0,0);
+    }
+    else if( gameState == WIN && ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
+    {
+        winImage.draw(0,0);
+        scoreFont.drawStringCenteredHorizontally(ofToString(chain.getLength()), 280, 288);
+    }
+    else
     {
         ofPushMatrix();
         ofTranslate(camera);
@@ -139,17 +153,13 @@ void testApp::draw(){
 
       
     }
-    else if( gameState == END)
-    {
-        ofSetHexColor(0x000000);
-        ofDrawBitmapString("END OF GAME", 200, 120);
-    }
+    
     
     string info = "";
-    info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
-    info += "camera: "+ofToString(camera.x)+", "+ofToString(camera.y)+"\n";
+    info += "FPS: "+ofToString(ofGetFrameRate(), 1);//"\n";
+    //info += "camera: "+ofToString(camera.x)+", "+ofToString(camera.y)+"\n";
     ofSetHexColor(0x444342);
-    ofDrawBitmapString(info, 230, 30);
+    ofDrawBitmapString(info, 390, 20);
     
 }
 
@@ -178,8 +188,10 @@ void testApp::touchDown(ofTouchEventArgs & touch){
         gameState = GAME;
     else if( gameState == GAME)
         touchMoved(touch);
-    else if( gameState == END)
-        resetGame();
+    else if( gameState == WIN || gameState == LOSE){
+        if( ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
+            resetGame();
+    }
 }
 
 //--------------------------------------------------------------
