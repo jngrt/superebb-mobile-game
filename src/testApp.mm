@@ -122,7 +122,8 @@ void testApp::draw(){
     {
         ofPushMatrix();
         ofTranslate(camera);
-
+        ofSetHexColor(0xffffff);
+        
         tideLine.draw(camera);
         level.draw(camera,drawDebug);
         ofSetHexColor(0xffffff);

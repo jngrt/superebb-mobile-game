@@ -180,8 +180,8 @@ void BoatChain::draw()
         chain[i].drawGraphics();
     }
     ofDisableAlphaBlending();
-    ofSetHexColor(0x0000ff);
-    ofCircle(lastPoint.x, lastPoint.y, 2);
+    //ofSetHexColor(0x0000ff);
+    //ofCircle(lastPoint.x, lastPoint.y, 2);
 }
 
 void BoatChain::drawDebug()
