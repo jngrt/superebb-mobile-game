@@ -40,22 +40,36 @@ void testApp::setup(){
     loseSound.loadSound("lose_crash.wav");
     winSound.loadSound("victory2.wav");
     
-    menuImage.loadImage("sestart.jpg");
-    winImage.loadImage("winscreen.png");
-    loseImage.loadImage("gameoverscreen.png");
+    introImage.loadImage("zoom0-intro-uitleg.jpg");
+    infoImage.loadImage("credits.jpg");
+    zoom1Image.loadImage("zoom1.png");
+    zoom2Image.loadImage("zoom2.png");
+    zoom3Image.loadImage("zoom3.png");
+    menuImage.loadImage("menu.jpg");
+    winImage.loadImage("winscreen.jpg");
+    loseImage.loadImage("gameoverscreen.jpg");
     
     scoreFont.loadFont("GloriaHallelujah.ttf", 26);
-    
+    dataFont.loadFont("GloriaHallelujah.ttf",12);
     stateStartMs = ofGetElapsedTimeMillis();
-    stateDelay = 1800;
+    stateDelay = 1000;
     
+    zoomStepMs = 700;
+    curZoom = 1;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    if(gameState == INTRO)
+    if(gameState == ZOOM)
     {
-        
+        if( ofGetElapsedTimeMillis() > stateStartMs + zoomStepMs)
+        {
+            stateStartMs = ofGetElapsedTimeMillis();
+            if(++curZoom > 3){
+                gameState = GAME;
+                tideLine.reset();
+            }
+        }
     }
     else if(gameState == GAME)
     {
@@ -106,8 +120,25 @@ void testApp::draw(){
     
     if(gameState == INTRO)
     {
+        introImage.draw(0,0);
+    }
+    else if(gameState == INFO)
+    {
+        infoImage.draw(0,0);
+    }
+    else if(gameState == MENU)
+    {
         menuImage.draw(0,0);
-        
+        //ofSetHexColor(0x000000);
+        string info = "Scheeps-data ververst:\n"+waitingShips.refreshDate+" GMT";
+        dataFont.drawString(info, 10, 22);
+        //ofSetHexColor(0xfffffffff);
+    }
+    else if(gameState == ZOOM)
+    {
+        if(curZoom==1)zoom1Image.draw(0,0);
+        else if(curZoom==2)zoom2Image.draw(0,0);
+        else if(curZoom==3)zoom3Image.draw(0,0);
     }
     else if( gameState == LOSE && ofGetElapsedTimeMillis() > stateStartMs + stateDelay )
     {
@@ -116,7 +147,7 @@ void testApp::draw(){
     else if( gameState == WIN && ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
     {
         winImage.draw(0,0);
-        scoreFont.drawStringCenteredHorizontally(ofToString(chain.getLength()), 280, 288);
+        scoreFont.drawStringCenteredHorizontally(ofToString(chain.getLength()), 210, 288);
     }
     else
     {
@@ -137,7 +168,7 @@ void testApp::draw(){
         ofPopMatrix();
         
         hud.draw(chain.getLength(),chain.getFrontPos().x, tideLine.x);
-        
+        /*
         if(drawDebug)
         {
             ofPushMatrix();
@@ -150,23 +181,24 @@ void testApp::draw(){
             waitingShips.drawDebug();
             tideLine.drawDebug(camera);
             ofPopMatrix();
-        }
+        }*/
 
       
     }
-    
+    ofSetHexColor(0xffffffff);
     
     string info = "";
     info += "FPS: "+ofToString(ofGetFrameRate(), 1);//"\n";
     //info += "camera: "+ofToString(camera.x)+", "+ofToString(camera.y)+"\n";
     ofSetHexColor(0x444342);
-    ofDrawBitmapString(info, 390, 20);
+    ofDrawBitmapString(info, 390, -20);
+    
     
 }
 
 void testApp::resetGame()
 {
-    gameState = INTRO;
+    gameState = MENU;
     
     level.reset();
     chain.reset();
@@ -174,6 +206,8 @@ void testApp::resetGame()
     tideLine.reset();
     
     score = 0;
+    curZoom = 1;
+    stateStartMs = ofGetElapsedTimeMillis();
     
 }
 
@@ -185,11 +219,43 @@ void testApp::exit(){
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs & touch){
     //level.checkInside(ofVec2f(touch.x-camera.x,touch.y-camera.y));
+    cout<<"x:"<<touch.x<<" y:"<<touch.y<<endl;
     if(gameState == INTRO)
-        gameState = GAME;
+    {
+        
+        if( ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
+        {
+            gameState = MENU;
+            stateStartMs = ofGetElapsedTimeMillis();
+        }
+    }
+    else if(gameState == INFO)
+    {
+        if( ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
+        {
+            gameState = MENU;
+            stateStartMs = ofGetElapsedTimeMillis();
+        }
+    }
+    else if( gameState == MENU)
+    {
+        
+        if( ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
+        {
+            if( touch.x > 430 && touch.y < 50 )
+                gameState = INFO;
+            else
+                gameState = ZOOM;
+            
+            stateStartMs = ofGetElapsedTimeMillis();
+        }
+    }
     else if( gameState == GAME)
+    {
         touchMoved(touch);
-    else if( gameState == WIN || gameState == LOSE){
+    }
+    else if( gameState == WIN || gameState == LOSE)
+    {
         if( ofGetElapsedTimeMillis() > stateStartMs + stateDelay)
             resetGame();
     }

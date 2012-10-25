@@ -25,7 +25,8 @@ public:
     void drawDebug();
     void drawAnim(ofPoint camera);
     void getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear);    
-    vector<ShipData> ships;    
+    vector<ShipData> ships;
+    string refreshDate;
     
 private:
     void parseData();

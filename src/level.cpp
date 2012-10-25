@@ -99,10 +99,10 @@ void Level::parseLevel()
             {
                 int baseX = data.getAttribute("object","x",0,j);
                 int baseY = data.getAttribute("object","y",0,j);
-                cout<<"base:"<<baseX<<" x "<<baseY<<endl;
+                //cout<<"base:"<<baseX<<" x "<<baseY<<endl;
                 data.pushTag("object",j);
                 string vertexData = data.getAttribute("polyline","points","");
-                cout<<"data:"<<vertexData<<endl;
+                //cout<<"data:"<<vertexData<<endl;
                 parsePoly(baseX, baseY, vertexData);
                 data.popTag();
             }
@@ -115,7 +115,7 @@ void Level::parseLevel()
             
             data.pushTag("object");
             string vertexData = data.getAttribute("polygon","points","");
-            cout<<"finish data:"<<vertexData<<endl;
+            //cout<<"finish data:"<<vertexData<<endl;
             parseFinish(baseX, baseY, vertexData);
             data.popTag();
             data.popTag();
@@ -126,7 +126,7 @@ void Level::parseLevel()
 }
 void Level::parseFinish(int baseX,int baseY,string vertexData)
 {
-    cout<<"parseFinish:"<<baseX<<" , "<<baseY<<endl;
+    //cout<<"parseFinish:"<<baseX<<" , "<<baseY<<endl;
     vector<string> vertices = ofSplitString(vertexData, " ");
     finishRight = 0;
     //finish.resize(vertices.size());
@@ -180,21 +180,21 @@ bool Level::checkInside(ofVec2f point)
 
 void Level::filterShips(vector<ShipData>& data)
 {
-    cout<<"filterShips, invalid ships:";
+    //cout<<"filterShips, invalid ships:";
     for(int i=0;i<data.size();i++)
     {
         if( checkInside(data[i].location)){
             data[i].invalidLocation = true;
-            cout<<i<<",";
+            //cout<<i<<",";
         }
             
     }
-    cout<<endl;
+    //cout<<endl;
 }
 
 void Level::parsePoly(int baseX, int baseY, string vertexData)
 {
-    cout<<"parsePoly:"<<baseX<<" , "<<baseY<<endl;
+    //cout<<"parsePoly:"<<baseX<<" , "<<baseY<<endl;
     vector<string> vertices = ofSplitString(vertexData, " ");
     ofxBox2dPolygon poly;
     float total=0;

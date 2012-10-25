@@ -21,6 +21,8 @@ void WaitingShips::setup()
     realArea = realEndCoord - realStartCoord;
     gameArea = gameEndCoord - gameStartCoord;
     
+    refreshDate = "";
+    
     parseData();
     
     img.loadImage("cargoboat1_23.png");
@@ -128,12 +130,24 @@ void WaitingShips::getShipsNearby(ofVec2f point, vector<ShipData> &shipsNear )
 void WaitingShips::parseData()
 {
     ofxJSONElement data;
-    
-    if( data.openLocal("data_tanker_only_18092012.json.txt") )
-        cout<<"Json parsed items:"<<data.size()<<endl;
-    else 
-        cout<<"Failed to parse json"<<endl;
-    
+    string url = "http://ships-test.herokuapp.com/";
+    if ( data.open(url) )
+    {
+        cout << "Ship data from server, count:"<<data.size()<<endl;
+        ofURLFileLoader loader;
+        ofHttpResponse resp = loader.get("http://ships-test.herokuapp.com/date");
+        refreshDate = resp.data;
+        cout << "Refresh date:"<<refreshDate;
+    }
+    else
+    {
+		cout  << "Failed to get ship data from server\n Trying local data." << endl;
+
+        if( data.openLocal("data_tanker_only_18092012.json.txt") )
+            cout<<"Json parsed items:"<<data.size()<<endl;
+        else
+            cout<<"Failed to parse json"<<endl;
+    }
     ships.resize(data.size());
     
     for(int i=0;i<data.size();i++)
